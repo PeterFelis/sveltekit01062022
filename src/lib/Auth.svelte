@@ -35,3 +35,11 @@
     </div>
   </div>
 </form>
+
+<style>
+
+  input{
+    background-color: transparent;
+    border-radius: 4px;
+  }
+</style>
