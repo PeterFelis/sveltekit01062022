@@ -13,7 +13,7 @@ async function tonen(){
     return data;
    };
 
-const promise = tonen();
+let promise = tonen();
 
 
 const invoeren = async () =>{
@@ -25,7 +25,6 @@ const invoeren = async () =>{
     
 
 function ophalen() {
-    inlezen=true;
     promise = tonen();
 }
 
