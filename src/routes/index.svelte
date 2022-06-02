@@ -14,7 +14,7 @@
 <section>
   <div class="welcome">
     <picture>
-      <img src="logo.svg" alt="Fetum logo" />
+      <img src="Logo.png" alt="Fetum logo" />
       <source srcset="svelte-welcome.webp" type="image/webp" />
       <img src="svelte-welcome.png" alt="Welcome" />
     </picture>
