@@ -1,15 +1,20 @@
 <script>
 
-    import { supabase } from '$lib/supabaseClient';
+import  {supabase}  from '$lib/supabaseClient';
+
 
 let naam;
 let leeftijd;
+let inlezen=false;
 
 
-const tonen = async function() {
-    const {data,error} = await supabase.from('personen').select();
+async function tonen(){
+    let {data,error} = await supabase.from('personen').select();
     return data;
-};
+   };
+
+const promise = tonen();
+
 
 const invoeren = async () =>{
     await supabase.from('personen')
@@ -18,15 +23,16 @@ const invoeren = async () =>{
     leeftijd="";
 };
     
-let promise = tonen;
 
 function ophalen() {
-    promise = tonen();  
+    inlezen=true;
+    promise = tonen();
 }
 
 function weergeven(){
     invoeren();
 }
+
 
 </script>
 
@@ -34,15 +40,21 @@ function weergeven(){
 
 <input type="text" placeholder="naam" bind:value={naam}/>
 <input type="number" placeholder="leeftijd" bind:value="{leeftijd}"/>
-<input type="button" on:click={ophalen} value="versturen"/>
+<input type="button" on:click={invoeren} value="versturen"/>
+
+<input type="button" on:click={ophalen} value="tonen"/>
 
 
-<input type="button" on:click={tonen} value="tonen"/>
-
-{#await tonen}
-	<p>...waiting</p>
-{:then data}
-	<img src={data.message} alt="Dog image" />
-{:catch error}
-	<p>An error occurred!</p>
-{/await}
+<div>
+    {#if promise}
+    {#await promise}
+        <p>Loading...</p>
+    {:then data}
+        {#each data as user}
+        <p>Name is {user.Naam}</p>
+        {/each}
+    {:catch error}
+        <p style="color: red">{error.message}</p>
+    {/await}
+    {/if}
+    </div>
