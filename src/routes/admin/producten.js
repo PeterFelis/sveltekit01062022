@@ -64,8 +64,7 @@ export const producten = [
         "prijs3": null,
         "bestelhoeveelheid3": null,
         "Nieuw": null
-    },
-    {
+    }, {
         "id": 29,
         "volgnummer": 141,
         "product": "Hoofdtelefoonsplitter",
