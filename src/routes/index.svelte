@@ -12,22 +12,22 @@
 </svelte:head>
 
 <section>
-  <h1>
-    <div class="welcome">
-      <picture>
-        <source srcset="svelte-welcome.webp" type="image/webp" />
-        <img src="svelte-welcome.png" alt="Welcome" />
-      </picture>
-    </div>
-
-    to your new<br />SvelteKit app
-  </h1>
-
-  <h2>
-    try editing <strong>src/routes/index.svelte</strong>
-  </h2>
-
-  <Counter />
+  <div class="welcome">
+    <picture>
+      <img src="Logo.png" alt="Fetum logo" />
+      <source srcset="svelte-welcome.webp" type="image/webp" />
+      <img src="svelte-welcome.png" alt="Welcome" />
+    </picture>
+  </div>
+  <p>
+    Onze webhoster stopte ermee. <br /><br />Niet helemaal opeens, maar dit soort zaken belanden
+    altijd onder op de stapel. <br />Met andere woorden: we zijn nog al traag geweest. Vandaar deze
+    uitleg. <br /><br /><br />We zijn er gewoon en business as usual. <br /><br />De website is er
+    donderdag (09-06-2022) weer.
+  </p>
+  <div class="payoff">
+    Grote waard 36 | 2675 BX Honselersdijk | 0174 769 132 | verkoop@fetum.nl<br /> Fetum juni 2022
+  </div>
 </section>
 
 <style>
@@ -36,25 +36,25 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1;
+    padding-top: 10vh;
+    max-width: 1000px;
+    width: 80%;
+    margin: 0 auto;
   }
-
-  h1 {
+  p {
+    font-size: 16px;
+    width: 60%;
+    text-align: center;
+  }
+  img {
     width: 100%;
   }
-
-  .welcome {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding: 0 0 calc(100% * 495 / 2048) 0;
-  }
-
-  .welcome img {
+  .payoff {
+    font-size: 12px;
+    width: 80%;
+    text-align: center;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    display: block;
+    bottom: 5vh;
+    color: rgba(73, 70, 70, 0.685);
   }
 </style>
