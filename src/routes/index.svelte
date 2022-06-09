@@ -23,7 +23,7 @@
     Onze webhoster stopte ermee. <br /><br />Niet helemaal opeens, maar dit soort zaken belanden
     altijd onder op de stapel. <br />Met andere woorden: we zijn nog al traag geweest. Vandaar deze
     uitleg. <br /><br /><br />We zijn er gewoon en business as usual. <br /><br />De website is er
-    donderdag (09-06-2022) weer.
+    maandag (13-06-2022) weer. Even bellen of een mailtje werkt ook ;-)
   </p>
   <div class="payoff">
     Grote waard 36 | 2675 BX Honselersdijk | 0174 769 132 | verkoop@fetum.nl<br /> Fetum juni 2022
@@ -53,8 +53,14 @@
     font-size: 12px;
     width: 80%;
     text-align: center;
-    position: absolute;
-    bottom: 5vh;
+    margin-top: 10vh;
     color: rgba(73, 70, 70, 0.685);
+  }
+
+  @media only screen and (max-width: 800px) {
+    .payoff {
+      position: absolute;
+      bottom: 5vh;
+    }
   }
 </style>
