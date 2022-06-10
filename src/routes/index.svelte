@@ -3,20 +3,17 @@
 </script>
 
 <script>
-  import Counter from '$lib/Counter.svelte';
 </script>
 
 <svelte:head>
   <title>Home</title>
-  <meta name="description" content="Svelte demo app" />
+  <meta name="description" content="Fetum web site - hoofdtelefoons en hotel tv" />
 </svelte:head>
 
 <section>
   <div class="welcome">
     <picture>
-      <img src="Logo.png" alt="Fetum logo" />
-      <source srcset="svelte-welcome.webp" type="image/webp" />
-      <img src="svelte-welcome.png" alt="Welcome" />
+      <img src="fetumlogo.png" alt="Fetum logo" />
     </picture>
   </div>
   <p>

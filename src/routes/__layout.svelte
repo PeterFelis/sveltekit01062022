@@ -1,5 +1,6 @@
 <script>
   import '../app.css';
+  import 'animate.css';
 </script>
 
 <main>
@@ -16,13 +17,6 @@
     height: 100vh;
     margin: 0 auto;
     box-sizing: border-box;
-    background-image: radial-gradient(
-      circle at 60.36% 21.54%,
-      #ffffff 0,
-      #ffeeff 25%,
-      #f8d7f8 50%,
-      #e2c1e9 75%,
-      #ceafde 100%
-    );
+    background-color: #ffffff;
   }
 </style>

@@ -28,7 +28,7 @@
   // dit is het totaaloverzicht van de alle producten, wordt geladen als er een groep wordt geklikt
   let productenLijst = [];
   // product wat getoont en aangepast wordt
-  let editproduct = '';
+  $: editproduct = '';
 
   let soort = ''; // dit is de zoekwaarde van de soort. wordt gezet door te klikken in de lijst
 

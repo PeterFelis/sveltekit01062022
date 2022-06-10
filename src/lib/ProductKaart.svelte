@@ -1,16 +1,23 @@
 <script>
+  import { afterUpdate, onMount } from 'svelte';
+
   export let product;
 
-  let prijzen = [];
-  product.prijzen.forEach((item) =>
-    prijzen.push({
-      prijs: parseInt(item.prijs).toFixed(2),
-      aantal: item.aantal,
-      prijsperstuk: (parseInt(item.prijs) / parseInt(item.aantal)).toFixed(2)
-    })
-  );
-  product.prijzen = prijzen;
-  console.log(product.prijzen);
+  const calcprijzen = async () => {
+    let prijzen = [];
+    product.prijzen.forEach((item) =>
+      prijzen.push({
+        prijs: parseInt(item.prijs).toFixed(2),
+        aantal: item.aantal,
+        prijsperstuk: (parseInt(item.prijs) / parseInt(item.aantal)).toFixed(2)
+      })
+    );
+    prijzen = prijzen;
+    product.prijzen = prijzen;
+    console.log(product.prijzen);
+  };
+
+  afterUpdate(() => calcprijzen());
 </script>
 
 <div

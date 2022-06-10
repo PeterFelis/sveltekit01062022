@@ -3,6 +3,17 @@
 </script>
 
 <header>
+  <nav>
+    <ul>
+      <li class:active={$page.url.pathname === '/admin/invoegen'}>
+        <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
+      </li>
+      <li class:active={$page.url.pathname === '/admin/pi'}>
+        <a sveltekit:prefetch href="/admin/pi">producten</a>
+      </li>
+    </ul>
+  </nav>
+
   <div class="corner">
     <a href="https://fetum.nl">
       <img src="/fetumlogo.png" alt="Fetum ons logo" />
