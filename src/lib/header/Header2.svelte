@@ -14,7 +14,7 @@
     </ul>
   </nav>
 
-  <div class="corner">
+  <div>
     <a href="https://fetum.nl">
       <img src="/fetumlogo.png" alt="Fetum ons logo" />
     </a>
@@ -73,8 +73,8 @@
     width: 14em;
     position: fixed;
     background: rgba(255, 255, 255, 0.5);
-    right: 2em;
-    top: 2em;
+    right: 5em;
+    top: 5em;
     padding: 2em;
     font-size: 0.6em;
     text-align: center;

@@ -3,11 +3,11 @@
 </script>
 
 <header>
-  <div class="corner">
+  <div class="w-20 absolute right-4 top-4">
     <a href="https://fetum.nl">
       <img src="/fetumlogo.png" alt="Fetum ons logo" />
     </a>
-    <p>
+    <p class="text-xs text-center">
       Grote Waard 36 <br />
       2675 BX Honselersdijk<br />
       0174-769132
