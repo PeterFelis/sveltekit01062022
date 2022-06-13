@@ -18,11 +18,7 @@
     <a href="https://fetum.nl">
       <img src="/fetumlogo.png" alt="Fetum ons logo" />
     </a>
-    <p>
-      Grote Waard 36 <br />
-      2675 BX Honselersdijk<br />
-      0174-769132
-    </p>
+    <p>0174-769132</p>
   </div>
 </header>
 
