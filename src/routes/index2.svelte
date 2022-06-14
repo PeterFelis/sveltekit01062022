@@ -49,7 +49,7 @@
   </div>
 
   <div
-    class="rounded-xl w-8/12 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 bg-rood text-center pt-11 mask"
+    class="rounded-xl w-full px-52 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 text-center pt-11 rasterRood"
   >
     <div class="relative">
       <div class="svgblob bg-licht duration-1000 hover:rotate-180">
@@ -87,24 +87,33 @@
     </div>
   </div>
 
-  <div class="text-donker grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 mx-auto mt-20">
-    <div class="p-16 lg:p-32 xl:p-48 text-right text-xl grid place-content-center ">
+  <div class="container text-donker grid md:grid-cols-2 md:grid-rows-1 mx-auto my-36">
+    <div class="text-xl grid place-content-center ">
       <h2 class="text-heeldonker text-7xl xl:text-9xl font-Valera">Hai!</h2>
       <h2 class="text-4xl">Wij zijn Fetum.</h2>
+    </div>
+    <div>
       <p class="mt-8 text-2xl">Wij leveren alles rond de computer op school.</p>
       <p class="mt-4 text-base">
         De nadruk ligt op hoofdtelefoons en oortjes. Van budgetuitvoeringen voor grootverbruikers in
         de zorg tot op maat gemaakt voor het onderwijs.
       </p>
       <p class="mt-2">We zijn u graag van dienst</p>
-      <div class="w-full">
         <button class="border text-white bg-blue-600 rounded-lg p-4 mt-16 mx-auto"
-          >Wat doen wij allemaal</button
-        >
-      </div>
+          >Wat doen wij allemaal</button>
     </div>
-    <div class="bg-cover bg-center" style="background-image:url('./afbeeldingen/muis.png')" />
   </div>
+
+      <div
+      class="h-screen w-screen bg-center bg-cover"
+      style="background-image: url('/afbeeldingen/muis.png')"
+    />
+    </div>
+    
+
+
+
+
 
   <div class="overflow-hidden">
     <!-- The slider itself is a flex grid -->
@@ -117,14 +126,14 @@
       {/each}
     </div>
   </div>
-</div>
+
 
 <svg width="0" height="0">
   <defs>
     <clipPath id="clip" clipPathUnits="objectBoundingBox">
       <path
         transform="scale(0.0018345, 0.00178814)"
-        d="M 52.77 414.876 C -9.426 384.693 -4.466 271.812 63.848 162.747 C 132.162 53.684 237.959 -10.26 300.154 19.923 C 324.8 31.884 338.901 56.83 342.692 89.379 C 375.985 74.829 407.479 72.009 432.123 83.969 C 494.318 114.153 489.357 227.034 421.043 336.098 C 352.73 445.161 246.932 509.105 184.738 478.922 C 160.092 466.962 145.991 442.015 142.2 409.466 C 108.907 424.016 77.415 426.836 52.77 414.876 Z"
+        d="M 244.552 500 C 211.307 500 181.417 468.774 160.747 419.075 C 116.473 434.65 78.606 433.561 57.153 412.109 C 36.822 391.778 34.782 356.704 47.881 315.406 C 23.147 297.778 8.792 276.78 8.792 254.24 C 8.792 226.704 30.215 201.469 65.814 181.869 C 50.249 137.606 51.341 99.751 72.79 78.302 C 93.255 57.837 128.657 55.904 170.309 69.29 C 190.161 31.614 216.131 8.792 244.552 8.792 C 269.093 8.792 291.806 25.808 310.331 54.709 C 350.524 42.492 384.578 44.86 404.49 64.772 C 425.805 86.087 427.016 123.604 411.756 167.509 C 465.689 188.23 477.837 214.065 476.441 248.885 C 474.8 289.819 473.562 312.58 430.622 332.92 C 442.347 372.485 439.801 405.964 420.127 425.638 C 399.474 446.291 363.61 448.07 321.461 434.278 C 301.296 475.058 274.263 500 244.552 500 Z"
         style="fill: rgba(216, 216, 216); stroke: rgba(216, 216, 216);"
       />
     </clipPath>
@@ -156,20 +165,9 @@
     width: 200vw;
   }
 
-  .mask {
-    -webkit-mask-image: linear-gradient(
-      transparent -40%,
-      rgba(0, 0, 0, 0.8),
-      black 50%,
-      rgba(0, 0, 0, 0.8),
-      transparent 140%
-    );
-    mask-image: linear-gradient(
-      transparent -20%,
-      rgba(0, 0, 0, 0.8),
-      black 50%,
-      rgba(0, 0, 0, 0.8),
-      transparent 120%
-    );
+
+  .rasterRood{
+    background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(215,89,77,1) 30%, rgba(215,89,77,1) 70%, rgba(255,255,255,1) 100%);
   }
 </style>

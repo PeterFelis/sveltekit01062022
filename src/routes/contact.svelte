@@ -1,10 +1,10 @@
 <div
   class="md:px-72     
-         bg-paars mt-20 
+         mt-20 
          flex flex-col
          md:flex-row
          text-licht
-         mask"
+         rasterPaars"
 >
   <div class="md:w-1/2 grid place-items-center py-16">
     <h1 class="text-5xl md:text-6xl font-Valera">Contact info</h1>
@@ -48,20 +48,10 @@
 </div>
 
 <style>
-  .mask {
-    -webkit-mask-image: linear-gradient(
-      transparent -40%,
-      rgba(0, 0, 0, 0.8),
-      black 50%,
-      rgba(0, 0, 0, 0.8),
-      transparent 140%
-    );
-    mask-image: linear-gradient(
-      transparent -20%,
-      rgba(0, 0, 0, 0.8),
-      black 50%,
-      rgba(0, 0, 0, 0.8),
-      transparent 120%
-    );
+
+.rasterPaars{
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(173,146,187,1) 20%, rgba(173,146,187,1) 80%, rgba(255,255,255,1) 100%);
   }
+  
 </style>
