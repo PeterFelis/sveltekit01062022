@@ -1,6 +1,6 @@
 <script context="module">
   export const prerender = true;
-  import Header from '$lib/header/Header.svelte';
+  import Header from '$lib/header/Fetum.svelte';
   import { onMount } from 'svelte';
 
   const producten = [
@@ -40,16 +40,17 @@
     class="h-screen w-screen bg-center bg-cover"
     style="background-image: url('/afbeeldingen/hp-136.jpg')"
   >
-    <Header />
     <div class="absolute bottom-0 left-0 w-full h-1/6">
-      <p class="w-full flex place-content-center text-roze text-2xl info text-center px-8">
+      <p class="w-full flex place-content-center text-donker text-2xl info text-center px-8">
         Hoofdtelefoons en electronica voor zorg, <br />educatie en iedereen die we van dienst kunnen
         zijn.
       </p>
     </div>
   </div>
 
-  <div class="grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-fit bg-heellicht text-center pt-11">
+  <div
+    class="rounded-xl w-8/12 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 bg-rood text-center pt-11 mask"
+  >
     <div class="relative">
       <div class="svgblob bg-licht duration-1000 hover:rotate-180">
         <img
@@ -58,9 +59,9 @@
           alt="hp-188"
         />
       </div>
-      <div>
-        <h2 class="w-full text-center text-xl text-donker -mt-20">Degelijke hoofdtelefoons</h2>
-      </div>
+      <h2 class="w-full text-center text-2xl text-geel absolute bottom-10">
+        Degelijke hoofdtelefoons
+      </h2>
     </div>
 
     <div class="relative">
@@ -71,7 +72,7 @@
           alt="hp32"
         />
       </div>
-      <h2 class="w-full text-center text-xl text-donker absolute bottom-20">Oortjes</h2>
+      <h2 class="w-full text-center text-2xl text-geel absolute bottom-10">Oortjes</h2>
     </div>
 
     <div class="relative">
@@ -82,21 +83,21 @@
           alt="i-40"
         />
       </div>
-      <h2 class="w-full text-center text-xl text-donker absolute bottom-20">Doosjes</h2>
+      <h2 class="w-full text-center text-2xl text-geel absolute bottom-10">Doosjes</h2>
     </div>
   </div>
 
-  <div class="text-roze grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 mx-auto">
-    <div class="p-16 lg:p-32 xl:p-48 text-left text-xl grid place-content-center ">
-      <h2 class="text-7xl xl:text-9xl text-center">Hai!</h2>
-      <h2 class="text-4xl text-center">Wij zijn Fetum.</h2>
+  <div class="text-donker grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 mx-auto mt-20">
+    <div class="p-16 lg:p-32 xl:p-48 text-right text-xl grid place-content-center ">
+      <h2 class="text-heeldonker text-7xl xl:text-9xl font-Valera">Hai!</h2>
+      <h2 class="text-4xl">Wij zijn Fetum.</h2>
       <p class="mt-8 text-2xl">Wij leveren alles rond de computer op school.</p>
       <p class="mt-4 text-base">
         De nadruk ligt op hoofdtelefoons en oortjes. Van budgetuitvoeringen voor grootverbruikers in
         de zorg tot op maat gemaakt voor het onderwijs.
       </p>
       <p class="mt-2">We zijn u graag van dienst</p>
-      <div class="w-full text-center">
+      <div class="w-full">
         <button class="border text-white bg-blue-600 rounded-lg p-4 mt-16 mx-auto"
           >Wat doen wij allemaal</button
         >
@@ -153,5 +154,22 @@
 
   .breedt {
     width: 200vw;
+  }
+
+  .mask {
+    -webkit-mask-image: linear-gradient(
+      transparent -40%,
+      rgba(0, 0, 0, 0.8),
+      black 50%,
+      rgba(0, 0, 0, 0.8),
+      transparent 140%
+    );
+    mask-image: linear-gradient(
+      transparent -20%,
+      rgba(0, 0, 0, 0.8),
+      black 50%,
+      rgba(0, 0, 0, 0.8),
+      transparent 120%
+    );
   }
 </style>

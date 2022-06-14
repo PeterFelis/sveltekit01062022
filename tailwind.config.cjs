@@ -2,15 +2,17 @@ module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     colors: {
-      'heellicht': '#EBD4CB',
-      'licht': '#DA9F93',
-      'roze': '#B6465F',
-      'rood': '#890620',
-      'donker': '#2C0703',
+      'geel': '#F2C76E',
+      'licht': '#eaf4f4',
+      'donker': '#6b9080',
+      'heeldonker': '#3d5248',
+      'rood': '#D7594D',
+      'paars': "#AD92BB"
     },
     extend: {
       fontFamily: {
-        'Raleway': ['"Raleway"', 'sans-serif']
+        'Raleway': ['"Raleway"', 'sans-serif'],
+        'Valera': ['"Varela Round"', 'sans-serif']
       }
     }
   },

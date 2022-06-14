@@ -2,74 +2,50 @@
   import { page } from '$app/stores';
 </script>
 
-<header>
-  <div class="w-20 absolute right-10 top-10">
-    <a href="https://fetum.nl">
-      <img src="/fetumlogo.png" alt="Fetum ons logo" />
-    </a>
-    <p class="text-xs text-center">0174-769132</p>
+<nav class="container mx-auto flex flex-row">
+  <div
+    class="font-Raleway text-base mr-6 relative"
+    class:active={$page.url.pathname === '/admin/invoegen'}
+  >
+    <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
   </div>
-</header>
+  <div
+    class="font-Raleway text-base mr-6 relative"
+    class:active={$page.url.pathname === '/admin/pi'}
+  >
+    <a sveltekit:prefetch href="/admin/pi">producten</a>
+  </div>
+  <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/index2'}>
+    <a sveltekit:prefetch href="/index2">index</a>
+  </div>
+  <div
+    class="font-Raleway text-base mr-6 relative"
+    class:active={$page.url.pathname === '/contact'}
+  >
+    <a sveltekit:prefetch href="/contact">contact</a>
+  </div>
+  <div
+    class="font-Raleway text-base mr-6 relative"
+    class:active={$page.url.pathname === '/leveringsvoorwaarden'}
+  >
+    <a sveltekit:prefetch href="/leveringsvoorwaarden">leveringsvoorwaarden</a>
+  </div>
+</nav>
 
 <style>
-  header {
-    display: flex;
-    justify-content: center;
-  }
-
-  nav {
-    display: flex;
-    justify-content: center;
-    --background: rgba(255, 255, 255, 0.7);
-  }
-
-  ul {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    height: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    background-size: contain;
-  }
-
-  li {
-    position: relative;
-    height: 100%;
-  }
-
-  nav a {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    padding: 0 1em;
-    color: purple;
-    font-weight: 700;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    transition: color 0.2s linear;
-  }
-
-  .corner {
-    width: 14em;
-    position: fixed;
-    background: rgba(255, 255, 255, 0.5);
-    right: 2em;
-    top: 2em;
-    padding: 2em;
-    font-size: 0.6em;
-    text-align: center;
-    border-radius: 5px;
-  }
-
-  .corner img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 2em;
+  .active::after {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 0.5rem solid transparent;
+    border-left: 0.5rem solid red;
+    border-bottom: 0.5rem solid transparent;
+    top: -1rem;
+    left: 0.7rem;
+    transform: translate3d(-20px, 20px, 0);
+    border-radius: 8px;
   }
 </style>

@@ -1,5 +1,5 @@
 <script>
-  import Header from '$lib/header/Header.svelte';
+  import Header from '$lib/header/Fetum.svelte';
 </script>
 
 <Header />
