@@ -2,33 +2,45 @@
   import { page } from '$app/stores';
 </script>
 
-<nav class="container mx-auto flex flex-row">
-  <div
-    class="font-Raleway text-base mr-6 relative"
-    class:active={$page.url.pathname === '/admin/invoegen'}
-  >
-    <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
-  </div>
-  <div
-    class="font-Raleway text-base mr-6 relative"
-    class:active={$page.url.pathname === '/admin/pi'}
-  >
-    <a sveltekit:prefetch href="/admin/pi">producten</a>
-  </div>
-  <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/index2'}>
-    <a sveltekit:prefetch href="/index2">index</a>
-  </div>
-  <div
-    class="font-Raleway text-base mr-6 relative"
-    class:active={$page.url.pathname === '/contact'}
-  >
-    <a sveltekit:prefetch href="/contact">contact</a>
-  </div>
-  <div
-    class="font-Raleway text-base mr-6 relative"
-    class:active={$page.url.pathname === '/leveringsvoorwaarden'}
-  >
-    <a sveltekit:prefetch href="/leveringsvoorwaarden">leveringsvoorwaarden</a>
+<nav class="flex items-center bg-paars h-20 bg-opacity-60 fixed w-full">
+  <div class="container mx-auto flex flex-row">
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/admin/invoegen'}
+    >
+      <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
+    </div>
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/admin/pi'}
+    >
+      <a sveltekit:prefetch href="/admin/pi">producten</a>
+    </div>
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/index2'}
+    >
+      <a sveltekit:prefetch href="/index2">index</a>
+    </div>
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/contact'}
+    >
+      <a sveltekit:prefetch href="/contact">contact</a>
+    </div>
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/leveringsvoorwaarden'}
+    >
+      <a sveltekit:prefetch href="/leveringsvoorwaarden">leveringsvoorwaarden</a>
+    </div>
+
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/webshopinfo'}
+    >
+      <a sveltekit:prefetch href="/webshopinfo">web shop info</a>
+    </div>
   </div>
 </nav>
 
@@ -41,7 +53,7 @@
     width: 0;
     height: 0;
     border-top: 0.5rem solid transparent;
-    border-left: 0.5rem solid red;
+    border-left: 0.5rem solid #6b9080;
     border-bottom: 0.5rem solid transparent;
     top: -1rem;
     left: 0.7rem;

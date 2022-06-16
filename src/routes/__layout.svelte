@@ -14,8 +14,11 @@
   />
 </svelte:head>
 
-<main class="w-full overflow-clip font-Raleway">
+<main class="font-Raleway">
   <Header />
+
   <Fetum />
-  <slot />
+  <div class="bg-achtergrond">
+    <slot />
+  </div>
 </main>

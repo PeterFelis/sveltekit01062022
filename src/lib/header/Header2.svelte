@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
 </script>
 
-<header class="flex flex-row h-12" >
+<header class="flex flex-row h-24">
   <nav>
     <ul>
       <li class:active={$page.url.pathname === '/admin/invoegen'}>
@@ -13,15 +13,14 @@
       </li>
     </ul>
 
-  <div style="">
-    <a href="https://fetum.nl">
-      <img class="bg-contain h-fit" alt="Fetum logo" src="/fetumlogo.png"/>
-    <p>0174-769132</p>
-    </a>
-  </div>
+    <div style="">
+      <a href="https://fetum.nl">
+        <img class="bg-contain h-fit" alt="Fetum logo" src="/fetumlogo.png" />
+        <p>0174-769132</p>
+      </a>
+    </div>
   </nav>
 </header>
-
 
 <style>
   header {

@@ -3,6 +3,6 @@
 </script>
 
 <Header />
-<div class="container mx-auto bg-slate-50">
+<div class="container mx-auto bg-slate-50 pt-32">
   <slot />
 </div>

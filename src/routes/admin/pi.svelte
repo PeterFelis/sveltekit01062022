@@ -2,7 +2,6 @@
   import { supabase } from '$lib/supabaseClient';
   import ProductKaart from '$lib/ProductKaart.svelte';
   import { onMount } from 'svelte';
-import { time_ranges_to_array } from 'svelte/internal';
 
   //ophalen van de categorien uit de database, dit gebeurd op de server is dus klaar als de pagina geladen is
   export async function load() {
@@ -103,6 +102,11 @@ import { time_ranges_to_array } from 'svelte/internal';
       productenLijst.sort((a, b) => a.volgnummer - b.volgnummer);
     });
   }
+
+  function messageVerwerken(event) {
+    if (event.detail.text == 'update') console.log('bier');
+    location.reload();
+  }
 </script>
 
 <div class="grid grid-cols-6">
@@ -159,7 +163,8 @@ import { time_ranges_to_array } from 'svelte/internal';
 
   <div class="col-span-3">
     {#if editproduct}
-      <ProductKaart product={editproduct} />
+      <ProductKaart product={editproduct} on:message={messageVerwerken} />
+      />
     {/if}
   </div>
 </div>
