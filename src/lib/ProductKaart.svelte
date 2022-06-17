@@ -1,56 +1,40 @@
 <script>
   import { afterUpdate, onMount } from 'svelte';
   import { supabase } from '$lib/supabaseClient';
-
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
   export let product;
+  let files = [];
+  $: file = files[0];
 
   const calcprijzen = async () => {
-    let prijzen = [];
-    product.prijzen.forEach((item) =>
-      prijzen.push({
-        prijs: parseInt(item.prijs).toFixed(2),
-        aantal: item.aantal,
-        prijsperstuk: (parseInt(item.prijs) / parseInt(item.aantal)).toFixed(2)
-      })
-    );
-    prijzen = prijzen;
-    if (product.prijzen) product.prijzen = prijzen;
-    console.log(product.prijzen);
+    if (product.prijzen) {
+      let prijzen = [];
+      product.prijzen.forEach((item) =>
+        prijzen.push({
+          prijs: parseInt(item.prijs).toFixed(2),
+          aantal: item.aantal,
+          prijsperstuk: (parseInt(item.prijs) / parseInt(item.aantal)).toFixed(2)
+        })
+      );
+      prijzen = prijzen;
+      if (product.prijzen) product.prijzen = prijzen;
+      console.log(product.prijzen);
+    }
   };
 
-  const updaten = async (id, key, value) => {
-    let aanpassing = {};
-    aanpassing[key] = value;
-    const { error } = await supabase.from('producten').update(aanpassing).match({ id: id });
-    dispatch('message', { text: 'update' });
+  const updaten = (pid, pKey, pValue) => {
+    dispatch('message', { text: 'updaten', id: pid, key: pKey, value: pValue });
   };
-
   afterUpdate(() => calcprijzen());
-
-  const nieuw = async () => {
-    const { data } = await supabase.from('producten').insert({
-      omschrijving: '',
-      categorie: '-',
-      type: '-',
-      prijzen: [
-        { prijs: 0, aantal: 10 },
-        { prijs: 1, aantal: 11 }
-      ],
-      volgnummer: 999
-    });
-    product = data;
-    console.log(product);
-  };
 </script>
 
 <div
   class="bg-white p-5 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
 >
   <div>
-    type:
+    Model
     <span
       contenteditable="true"
       class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -60,7 +44,7 @@
   </div>
 
   <div>
-    categorie:
+    Categorie:
     <span
       contenteditable="true"
       class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -70,7 +54,7 @@
   </div>
 
   <div>
-    type:
+    Type:
     <span
       contenteditable="true"
       class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -100,9 +84,28 @@
     </ul>
   {/if}
 
+  <div>fotos opladen</div>
+  <input type="file" bind:files accept="image/*" multiple />
+
+  {#each files as file}
+    <div>
+      <img src={URL.createObjectURL(file)} alt="" />
+    </div>
+  {/each}
+
   <label>
-    <button class="rounded-md bg-blue-700 text-white px-4 py-2" on:click={nieuw}>nieuw</button>
+    <button
+      class="rounded-md bg-blue-700 text-white px-4 py-2"
+      on:click={function () {
+        dispatch('message', { text: 'nieuw' });
+      }}>nieuw</button
+    >
     <button class="rounded-md bg-green-700 text-white px-4 py-2">kopieren</button>
-    <button class="rounded-md bg-red-700 text-white px-4 py-2">verwijderen</button>
+    <button
+      class="rounded-md bg-red-700 text-white px-4 py-2"
+      on:click={function () {
+        dispatch('message', { text: 'delete', id: product.id });
+      }}>verwijderen</button
+    >
   </label>
 </div>

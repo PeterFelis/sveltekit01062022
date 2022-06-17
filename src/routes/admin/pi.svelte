@@ -103,16 +103,63 @@
     });
   }
 
+  const nieuwProductMaken = async () => {
+    console.log('nieuw');
+    let nieuwProduct = {
+      omschrijving: 'nieuw',
+      categorie: 'nieuw',
+      type: 'nieuw',
+      model: 'nieuw',
+      volgnummer: 999,
+      prijzen: []
+    };
+
+    const { data, error } = await supabase.from('producten').insert(nieuwProduct);
+    if (error) console.log(`Fout bij invoegen product: ${error}`);
+    else console.log('nieuw product id ' + data[0].id);
+    nieuwProduct.id = data[0].id;
+  };
+
+  const productVerwijderen = async (vid) => {
+    const { data, error } = await supabase.from('producten').delete().match({ id: vid });
+    if (error) console.log(`Fout bij verwijderen: ${error}`);
+    else console.log(`product ${vid} verwijderd`);
+  };
+
+  const updaten = async (id, key, value) => {
+    let aanpassing = {};
+    if (value.endsWith('<br>')) value = value.substr(0, value.length - 4);
+    aanpassing[key] = value.trim();
+    const { data, error } = await supabase.from('producten').update(aanpassing).match({ id: id });
+    werklijst = [...werklijst];
+
+    const typeLijstset = new Set();
+    productenLijst?.forEach((item) => {
+      typeLijstset.add(item.type);
+    });
+    typeLijst = [...typeLijstset];
+  };
+
   function messageVerwerken(event) {
-    if (event.detail.text == 'update') console.log('bier');
-    location.reload();
+    if (event.detail.text == 'updaten') {
+      updaten(event.detail.id, event.detail.key, event.detail.value);
+
+      return;
+    }
+
+    if (event.detail.text == 'nieuw') {
+      nieuwProductMaken();
+    }
+    if (event.detail.text == 'delete') {
+      productVerwijderen(event.detail.id);
+    }
   }
 </script>
 
 <div class="grid grid-cols-6">
   <!-- overzicht productgroepen-->
   <div>
-    <h2>Groepen</h2>
+    <h2>Categorieen</h2>
     <ul>
       {#each cats.body as cat}
         <li
@@ -128,7 +175,7 @@
 
   <!-- overzicht categorieen per productgroep-->
   <div>
-    <h2 on:click={() => werklijstmaken('alles')}>alles</h2>
+    <h2 on:click={() => werklijstmaken('alles')}>Types</h2>
     {#if typeLijst}
       <ul>
         {#each typeLijst as type}
@@ -140,7 +187,7 @@
 
   <!-- overzicht producten-->
   <div>
-    <h2>Producten</h2>
+    <h2>Model</h2>
     {#if productenLijst}
       <ul>
         {#each werklijst as product}
@@ -164,7 +211,6 @@
   <div class="col-span-3">
     {#if editproduct}
       <ProductKaart product={editproduct} on:message={messageVerwerken} />
-      />
     {/if}
   </div>
 </div>
