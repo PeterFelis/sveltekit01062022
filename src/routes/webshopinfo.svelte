@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>VVV cheques, bestellen, klant worden en zo | Fetum</title>
+</svelte:head>
+
 <div class="pt-20">
   <div class="text-donker grid grid-cols-2 container mx-auto">
     <div class="w-full">

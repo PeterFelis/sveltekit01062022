@@ -1,10 +1,9 @@
 <script>
-  import { supabase } from '$lib/supabaseClient'
+  import { supabase } from '$lib/supabaseClient';
   import { page } from '$app/stores';
   import { gebruiker } from '$lib/store.js';
 
   const user = supabase.auth.user();
- 
 </script>
 
 <nav class="flex items-center bg-paars h-20 bg-opacity-60 fixed w-full">
@@ -12,6 +11,12 @@
     <div
       class="font-Raleway text-base mr-6 relative"
       class:active={$page.url.pathname === '/admin/invoegen'}
+    >
+      <a sveltekit:prefetch href="/admin/auto_accountmaken">test klantenoverdragen</a>
+    </div>
+    <div
+      class="font-Raleway text-base mr-6 relative"
+      class:active={$page.url.pathname === '/admin/auto_accountmaken'}
     >
       <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
     </div>
@@ -21,11 +26,8 @@
     >
       <a sveltekit:prefetch href="/admin/pi">producten</a>
     </div>
-    <div
-      class="font-Raleway text-base mr-6 relative"
-      class:active={$page.url.pathname === '/index2'}
-    >
-      <a sveltekit:prefetch href="/index2">index</a>
+    <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/'}>
+      <a sveltekit:prefetch href="/">index</a>
     </div>
     <div
       class="font-Raleway text-base mr-6 relative"
@@ -47,26 +49,23 @@
       <a sveltekit:prefetch href="/webshopinfo">web shop info</a>
     </div>
 
-    <div 
+    <div
       class="font-Raleway text-base mr-6 relative"
       class:active={$page.url.pathname === '/accountmaken'}
     >
       <a sveltekit:prefetch href="/accountmaken">account maken</a>
     </div>
-    <div 
+    <div
       class="font-Raleway text-base mr-6 relative"
       class:active={$page.url.pathname === '/inloggen'}
     >
       <a sveltekit:prefetch href="/inloggen">inloggen</a>
     </div>
-    <div 
-      class="font-Raleway text-base mr-6 relative">
-       
-        {#if (!gebruiker==false)}
-        {$gebruiker.data} 
-        {/if}
-
-      </div>
+    <div class="font-Raleway text-base mr-6 relative">
+      {#if !gebruiker == false}
+        {$gebruiker.data}
+      {/if}
+    </div>
   </div>
 </nav>
 

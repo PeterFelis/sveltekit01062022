@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>contact - let's talk | Fetum</title>
+</svelte:head>
+
 <div class="pt-20">
   <div class="text-donker grid grid-cols-2 container mx-auto">
     <div class="flex flex-col justify-center">

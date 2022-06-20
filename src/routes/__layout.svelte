@@ -1,8 +1,12 @@
-<script>
+<script context="module">
   import '../app.css';
   import 'animate.css';
   import Header from '$lib/header/Header.svelte';
   import Fetum from '$lib/header/Fetum.svelte';
+  import { supabase } from '$lib/supabaseClient';
+  import { goto } from '$app/navigation';
+
+ 
 </script>
 
 <svelte:head>
