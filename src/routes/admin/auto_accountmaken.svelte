@@ -11,10 +11,11 @@
       password: klant.wachtwoord
     });
     if (reply.error.message == 'User already registered') {
-      console.log(email + 'bestaat dubbel');
+      console.log(klant.emailadres + ' bestaat dubbel');
       return;
     }
-    console.log(email, 'gelukt');
+    console.log(klant.emailadres, ' gelukt');
+    console.log(reply);
   };
 
   // voor de eenmalige inladen -> overdragen naar klanten tabel
@@ -28,7 +29,7 @@
   //  console.log(item);
   //});
   accountMaken(klanten[0]);
-  console.log(klanten[0]);
+  //console.log(klanten[0]);
 
   const invoegen = async (item) => {
     // maken van de Json met prijzen
