@@ -39,6 +39,14 @@
       invoegen(item);
     });
   };
+
+
+  const bucketmaken = async()=>{
+    const {data,error} =await supabase.storage.createBucket('nieuw');
+    console.log('data ',data);
+    console.log('error',error);
+  }
+
 </script>
 
 <h2>invoeren van alle producten uit json lijst</h2>
@@ -54,3 +62,7 @@
     <Label text="fout ingevoerd" waarde={tellerfout} />
   </div>
 </div>
+
+<h2>nieuwe bucket maken</h2>
+<input type="button" value="bucket maken" on:click={bucketmaken} class="p-1 bg-red-500 text-white rounded-sm"
+/>

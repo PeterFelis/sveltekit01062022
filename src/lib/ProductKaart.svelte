@@ -2,11 +2,12 @@
   import { afterUpdate, onMount } from 'svelte';
   import { supabase } from '$lib/supabaseClient';
   import { createEventDispatcher } from 'svelte';
+import { loop_guard } from 'svelte/internal';
   const dispatch = createEventDispatcher();
 
   export let product;
   let files = [];
-  $: file = files[0];
+  //$: file = files[0];     
 
   const calcprijzen = async () => {
     if (product.prijzen) {
@@ -28,6 +29,18 @@
     dispatch('message', { text: 'updaten', id: pid, key: pKey, value: pValue });
   };
   afterUpdate(() => calcprijzen());
+
+  const uploadenfotos = async (fotos) =>{
+    console.log(files)
+    const {data,error} = await supabase.storage
+    .from('productfotos')
+    .upload('test2',files[0])
+
+    console.log(data);
+    console.log(error);
+  }
+
+
 </script>
 
 <div
@@ -85,7 +98,7 @@
   {/if}
 
   <div>fotos opladen</div>
-  <input type="file" bind:files accept="image/*" multiple />
+  <input type="file" bind:files on:change={uploadenfotos} accept="image/*" multiple />
 
   {#each files as file}
     <div>
