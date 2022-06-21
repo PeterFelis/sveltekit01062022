@@ -1,6 +1,25 @@
 export const klanten =
     [
         {
+            id: 15,
+            gebruikersnaam: 'Felis',
+            wachtwoord: 'Joopjoop',
+            groep: 'winkelier',
+            voornaam: 'Peter',
+            achternaam: 'Felis',
+            bedrijfsnaam: 'Fetum',
+            straatnaam: 'Grote waard',
+            straatnummer: 36,
+            straattoevoeging: '',
+            postcode: '2675 BX',
+            plaatsnaam: 'Honselersdijk',
+            telefoonnummer: '0174 693226',
+            emailadres: 'peter@felis.nl',
+            actief: 10,
+            datum: '2007-12-18T07: 42: 46.350Z'
+        },
+
+        {
             id: 21,
             gebruikersnaam: 'DonBosco',
             wachtwoord: '3317LE',

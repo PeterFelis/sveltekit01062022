@@ -1,8 +1,4 @@
-<script context="module">
-  export const prerender = true;
-  import { supabase } from '$lib/supabaseClient';
-  import { setContext } from 'svelte';
-
+<script>
   const producten = [
     {
       img: '/scroller/305.png',
@@ -33,9 +29,7 @@
       toelichting: 'Hoofdtelefoon met 1 meter snoer'
     }
   ];
-</script>
 
-<script>
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   const type = $page;

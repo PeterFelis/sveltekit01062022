@@ -1,9 +1,14 @@
 <script>
   import { supabase } from '$lib/supabaseClient';
-  import Label from '$lib/Label.svelte';
+  import { goto } from '$app/navigation';
+
+  // check of dit mag anders naar index pagina
+  if (!supabase.auth.user()) goto('/');
+  else if (supabase.auth.user().user_metadata.toegang < 10) goto('/');
 
   //de json met alle producten -> komt origineel uit Fetum database
   import { producten } from './producten';
+  import Label from '$lib/Label.svelte';
 
   // voor de eenmalige inladen -> overdragen naar andere pagina
   $: tellerfout = 0;
@@ -40,13 +45,11 @@
     });
   };
 
-
-  const bucketmaken = async()=>{
-    const {data,error} =await supabase.storage.createBucket('nieuw');
-    console.log('data ',data);
-    console.log('error',error);
-  }
-
+  const bucketmaken = async () => {
+    const { data, error } = await supabase.storage.createBucket('nieuw');
+    console.log('data ', data);
+    console.log('error', error);
+  };
 </script>
 
 <h2>invoeren van alle producten uit json lijst</h2>
@@ -64,5 +67,9 @@
 </div>
 
 <h2>nieuwe bucket maken</h2>
-<input type="button" value="bucket maken" on:click={bucketmaken} class="p-1 bg-red-500 text-white rounded-sm"
+<input
+  type="button"
+  value="bucket maken"
+  on:click={bucketmaken}
+  class="p-1 bg-red-500 text-white rounded-sm"
 />

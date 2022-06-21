@@ -1,8 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import { gebruiker } from '$lib/store.js';
   import { supabase } from '$lib/supabaseClient';
+
+  let gast;
 
   onMount(async () => {
     const error = await supabase.auth.signOut();
@@ -19,14 +20,14 @@
     });
 
     const user = supabase.auth.user();
-    console.log(user?.email);
-
+    console.log(user);
     gebruiker.set(user.email);
-    console.log('ingelogd '.$gebruiker);
+    gast = user;
+    return;
 
-    if (!antwoord.error) {
-      goto('infoBijwerken');
-    }
+    //if (inloggen) {
+    //  goto('infoBijwerken');
+    //}
   };
 </script>
 
@@ -41,6 +42,6 @@
   <button on:click={inloggen}>ok!</button>
 </div>
 
-{#if antwoord}
-  <p>poehh. iets fout gegaan met inloggen, sorry</p>
+{#if gast}
+  --{gast.user_metadata.toegang}--
 {/if}

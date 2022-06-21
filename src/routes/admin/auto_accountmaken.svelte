@@ -1,82 +1,93 @@
 <script>
+  import { goto } from '$app/navigation';
+
+  // als het goed is is dit gelukt
   import { supabase } from '$lib/supabaseClient';
   import { klanten } from './klanten';
-  let email;
-  let password;
-  let ojee = false;
+
+  // check of dit mag anders naar index pagina
+  if (!supabase.auth.user()) goto('/');
+  else if (supabase.auth.user().user_metadata.toegang < 10) goto('/');
+
+  let teller = 0;
 
   const accountMaken = async (klant) => {
-    let reply = await supabase.auth.signUp({
-      email: klant.emailadres,
-      password: klant.wachtwoord
-    });
-    if (reply.error.message == 'User already registered') {
-      console.log(klant.emailadres + ' bestaat dubbel');
+    let toegang;
+    if (klant.wachtwoord.length < 6) klant.wachtwoord = 'fdrefer';
+    klant.emailadres = klant.emailadres.trim();
+    if (klant.aktief < 5) toegang = 1;
+    else toegang = 10;
+    let { user, session, error } = await supabase.auth.signUp(
+      {
+        email: klant.emailadres,
+        password: klant.wachtwoord
+      },
+      {
+        data: {
+          toegang: toegang
+        }
+      }
+    );
+
+    if (error !== null) {
+      console.log('error', error);
+      console.log(klant.emailadres);
+    }
+    let id = user.id;
+
+    let afnemer = {
+      autID: id,
+      klantnaam: klant.bedrijfsnaam,
+      straat: klant.straatnaam,
+      nr: klant.straatnummer,
+      postcode: klant.postcode,
+      plaats: klant.plaatsnaam
+    };
+
+    let { data1, error1 } = await supabase.from('klanten').insert(afnemer);
+    if (!error1 == null) {
+      console.log('error klanten', error1, data1);
       return;
     }
-    console.log(klant.emailadres, ' gelukt');
-    console.log(reply);
-  };
 
-  // voor de eenmalige inladen -> overdragen naar klanten tabel
-  $: tellerfout = 0;
-  $: tellergoed = 0;
+    let persoon = {
+      autID: id,
+      voornaam: klant.voornaam,
+      achternaam: klant.achternaam,
+      geslacht: null,
+      geboortedatum: null,
+      gebruikersnaam: klant.gebruikersnaam
+    };
 
-  // dit is zijn test functies, samen met klanten.js om alle klanten in één keer in te voeren
-  // eerst aanmaken als klant bij Auth, daarna met die info invoeren als klanten
-
-  //klanten.forEach((item) => {
-  //  console.log(item);
-  //});
-  accountMaken(klanten[0]);
-  //console.log(klanten[0]);
-
-  const invoegen = async (item) => {
-    // maken van de Json met prijzen
-    let prijzen = [{ prijs: item.prijs, aantal: item.bestelhoeveelheid }];
-    if (item.prijs2) prijzen.push({ prijs: item.prijs2, aantal: item.bestelhoeveelheid2 });
-    if (item.prijs3) prijzen.push({ prijs: item.prijs3, aantal: item.bestelhoeveelheid3 });
-    const { data, error } = await supabase.from('producten').insert({
-      model: item.product,
-      omschrijving: item.omschrijving,
-      categorie: item.categorie,
-      type: item.type,
-      prijzen: prijzen,
-      volgnummer: item.volgnummer
-    });
-    if (error) {
-      tellerfout++;
-      console.log(`${error.message} - ${item.product}`);
-
+    let { data2, error2 } = await supabase.from('personen').insert(persoon);
+    if (!error2 == null) {
+      console.log('error personen', error2, data2);
       return;
     }
-    tellergoed++;
+
+    teller++;
   };
 
-  const invoerenAlles = () => {
-    tellergoed = 0;
-    tellerfout = 0;
-    producten.forEach((item) => {
-      invoegen(item);
-    });
+  const starten = () => {
+    const Nklanten = klanten.reverse();
+    Nklanten.forEach((klant) => accountMaken(klant));
+  };
+
+  const wissen = async () => {
+    //tabel klanten leegvegen
+    await supabase.from('klanten').delete().neq('id', 0);
+    console.log('leegvegen klanten');
+    await supabase.from('personen').delete().neq('id', 0);
+    console.log('leegvegen personen');
+    //denk er aan: auts leegmaken in supabase sql!!
   };
 </script>
 
 <div class="container pt-20 mx-auto">
-  <h1 class="text-xl">account maken</h1>
-  <label for="email">email adres</label>
-  <input type="email" placeholder="iemand@bedrijf.nl" bind:value={email} />
+  <h1 class="text-xl">oude accounts invoegen</h1>
+  <p>aantal: {teller}</p>
 
-  <label for="password">email adres</label>
-  <input type="text" placeholder="geheim!" bind:value={password} />
-
-  <button on:click={accountMaken}>ok!</button>
-
-  <div>
-    {#if ojee}
-      <p>Dit email adres is al gebruikt. Kies hieronder wat u wilt doen</p>
-      <div><button on:click={() => goto('/inloggen')}>naar de inlog pagina</button></div>
-      <div><button on:click={stuurInlogNaarMail}>Stuur een inlog code naar {email}</button></div>
-    {/if}
-  </div>
+  <button on:click={wissen} class="rounded-md border-2 p-2">wissen</button>
+  druk de knop om alle klanten over te dragen
+  <button class="rounded-md border-2 p-2" on:click={starten}>overdragen</button>
 </div>
