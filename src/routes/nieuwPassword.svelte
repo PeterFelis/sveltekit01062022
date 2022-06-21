@@ -39,16 +39,13 @@
 <div class="container pt-20 mx-auto">
   <h1 class="text-xl">passwordVeranderen</h1>
   <label for="email">email adres</label>
-  {email}
+  
 
   <label for="password">Nieuw Password</label>
   <input type="text" placeholder="nieuw geheim!" bind:value={pwoord} />
 
   <button on:click={passwordAanpassen}>aanpassen</button>
-  {info}
-  {email}
-  {token}
-
+  
   <div>
     {#if ojee}
       <p>Password is aangepast, ga naar de login</p>
