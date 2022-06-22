@@ -1,8 +1,16 @@
+<script>
+  import Header from '$lib/header/Header.svelte';
+  import Fetum from '$lib/header/Fetum.svelte';
+</script>
+
 <svelte:head>
   <title>contact - let's talk | Fetum</title>
 </svelte:head>
 
-<div class="pt-20">
+<Header />
+
+<Fetum />
+<div class="bg-achtergrond">
   <div class="text-donker grid grid-cols-2 container mx-auto">
     <div class="flex flex-col justify-center">
       <h1 class="text-center text-3xl md:text-6xl font-Raleway my-4">Contact info</h1>
@@ -10,13 +18,13 @@
     </div>
 
     <div class="grid grid-cols-2 py-16 mx-auto text-sm pr-20">
-      <div class="text-right mr-3">Naam:</div>
+      <div class="text-right mr-3">Naam</div>
       <div class="text-left ml-3">Fetum bv</div>
-      <div class="text-right mr-3">Adres:</div>
+      <div class="text-right mr-3">Adres</div>
       <div class="text-left ml-3">Grote Waard 36</div>
-      <div class="text-right mr-3">Postcode:</div>
+      <div class="text-right mr-3">Postcode</div>
       <div class="text-left ml-3">2675 BX</div>
-      <div class="text-right mr-3">Plaats:</div>
+      <div class="text-right mr-3">Plaats</div>
       <div class="text-left ml-3">Honselersdijk</div>
       <div class="text-right mr-3 mt-3">Telefoon:</div>
       <div class="text-left ml-3 mt-3">+31 (0) 174 769132</div>

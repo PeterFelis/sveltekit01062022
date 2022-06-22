@@ -1,4 +1,7 @@
 <script>
+  import Header from '$lib/header/Header.svelte';
+  import Fetum from '$lib/header/Fetum.svelte';
+
   const producten = [
     {
       img: '/scroller/305.png',
@@ -31,13 +34,17 @@
   ];
 
   import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
   const type = $page;
 </script>
 
 <svelte:head>
   <title>Hoi! start hier | Fetum</title>
 </svelte:head>
+
+<Header />
+
+<Fetum />
+
 <div>
   <div
     class="h-screen w-screen bg-center bg-cover"

@@ -2,6 +2,11 @@
   import { supabase } from '$lib/supabaseClient';
   import ProductKaart from '$lib/ProductKaart.svelte';
   import { onMount } from 'svelte';
+  import Header from '$lib/header/Header.svelte';
+  import Fetum from '$lib/header/Fetum.svelte';
+  import { goto } from '$app/navigation';
+
+  // check of dit mag anders naar index pagina
 
   //ophalen van de categorien uit de database, dit gebeurd op de server is dus klaar als de pagina geladen is
   export async function load() {
@@ -13,6 +18,9 @@
 </script>
 
 <script>
+  if (!supabase.auth.user()) goto('/');
+  else if (supabase.auth.user().user_metadata.toegang < 10) goto('/');
+
   onMount(() => (promisproductenOphalen = productenOphalen('hoofdtelefoons')));
   // gebruikte promises
   let promisproductenOphalen;
@@ -156,7 +164,11 @@
   }
 </script>
 
-<div class="grid grid-cols-6">
+<Header />
+
+<Fetum />
+
+<div class="pt-20 container mx-auto grid grid-cols-6">
   <!-- overzicht productgroepen-->
   <div>
     <h2>Categorieen</h2>

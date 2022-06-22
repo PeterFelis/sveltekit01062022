@@ -1,12 +1,9 @@
 <script context="module">
   import '../app.css';
   import 'animate.css';
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
+
   import { supabase } from '$lib/supabaseClient';
   import { goto } from '$app/navigation';
-
- 
 </script>
 
 <svelte:head>
@@ -19,10 +16,5 @@
 </svelte:head>
 
 <main class="font-Raleway">
-  <Header />
-
-  <Fetum />
-  <div class="bg-achtergrond">
-    <slot />
-  </div>
+  <slot />
 </main>

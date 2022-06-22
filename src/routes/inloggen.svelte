@@ -1,12 +1,22 @@
 <script>
+  import Header from '$lib/header/Header.svelte';
+  import Fetum from '$lib/header/Fetum.svelte';
+
   import { onMount } from 'svelte';
   import { gebruiker } from '$lib/store.js';
   import { supabase } from '$lib/supabaseClient';
+  import { goto } from '$app/navigation';
 
-  let klant=null;
+  let klant = null;
   let ojeeInloggen = false;
   let ojeeAccount = false;
-  let stuurmail= 'hidden';
+  let stuurmail = false;
+  //nieuwe klant aanmaken
+  let Nemail,
+    Npassword = '';
+  //bestaaande klant
+  let email,
+    password = '';
 
   onMount(async () => {
     const error = await supabase.auth.signOut();
@@ -14,46 +24,47 @@
     console.log('uitgelogt');
   });
 
-  let email, password='';
   // inloggen bestaande klant
   const inloggen = async () => {
-    let {reply , error} = await supabase.auth.signIn({
+    let { reply, error } = await supabase.auth.signIn({
       email: email,
       password: password
     });
 
-    if (error!==null){
+    if (error !== null) {
       ojeeInloggen = true;
-      return
+      return;
     }
 
     const user = supabase.auth.user();
     klant = user;
-    console.log('wel goed gegaan'+user.email);
-    console.log('error'+error);
+    goto('/');
     return;
-
   };
 
   // opvragen password
   const stuurInlogNaarMail = async () => {
-    let { data, error } = await supabase.auth.api.resetPasswordForEmail(email, {
+    let tmail = email;
+    if (!tmail) tmail = Nemail;
+    let { data, error } = await supabase.auth.api.resetPasswordForEmail(tmail, {
       redirectTo: 'http://localhost:3000/nieuwPassword'
     });
-    stuurmail='';
+    ojeeAccount = false;
+    stuurmail = true;
     show();
     console.log(data, error);
   };
 
-  const show = function() {
+  const show = function () {
+    console.log('show');
     setTimeout(() => weghalen(), 3000);
+  };
+
+  function weghalen() {
+    stuurmail = false;
+    console.log('en weg');
   }
 
-  function weghalen(){
-    stuurmail="hidden";
-  }
-
-  let Nemail, Npassword='';
   // aanmaken nieuwe klant
   const accountMaken = async () => {
     let reply = await supabase.auth.signUp({
@@ -67,65 +78,132 @@
     }
   };
 
-
-
-
-
+  const resetPop = () => {
+    klant = null;
+    ojeeInloggen = false;
+    ojeeAccount = false;
+    stuurmail = 'hidden';
+    Nemail = Npassword = email = password = '';
+  };
 </script>
-<div class='container grid grid-cols-2 mx-auto pt-40 w-8/12'>
 
+<svelte:head>
+  <title>Inloggen of klantworden | Fetum</title>
+</svelte:head>
 
-  <div class="flex flex-col text-xl w-9/12">
-    <h1 class="text-3xl rounded-md mb-4">Inloggen</h1>
-        <label class="mt-2">Email adres
-        <input class="float-right" type="email" placeholder="iemand@bedrijf.nl" bind:value={email} />
-        </label>      
-      
-        <label for="password">Password
-        <input class="float-right" type="text" placeholder="geheim!" bind:value={password} />
-        </label>
-    <button class="mt-8 text-3xl text-left" on:click={inloggen}>Log in</button>
-  
-{#if ojeeInloggen}
-<div class="text-base border-2 rounded-md p-8">
-  <p>Sorry, er is iets fout gegaan. <br>U kunt vier dingen doen:</p>
-  
-    <li>Probeer het nog een keer</li>
-    <li>Maak hiernaast een account aan</li>
-    <li class="cursor-pointer" on:click={stuurInlogNaarMail}>Klik hier om uw password te resetten</li>
-  
-</div>
-{/if}
+<Header />
 
+<Fetum />
 
-{#if klant}
+<div class="bg-achtergrond flex flex-col place-items-center h-screen w-screen">
+  <div class="text-donker grid grid-cols-2 container mx-auto">
+    <div class="flex flex-col justify-center">
+      <h1 class="text-center text-3xl md:text-6xl font-Raleway my-4">
+        Inloggen <br /> of<br /> klant worden
+      </h1>
+      <p class="text-center">Snel en makkelijk</p>
+    </div>
+    <div class="w-full p-4">
+      <img src="/afbeeldingen/hp188.png" />
+    </div>
+  </div>
 
-  <p>  {klant.email}</p>
-  <p> {klant.user_metadata.toegang}</p>
-{/if}
-</div>
+  <div class="container grid grid-cols-2 mx-auto w-8/12">
+    <div class="flex flex-col text-xl w-9/12">
+      <h1 class="text-3xl rounded-md mb-4">Inloggen</h1>
+      <label class="mt-2"
+        >Email adres
+        <input
+          class="float-right bg-transparent"
+          type="email"
+          placeholder="iemand@bedrijf.nl"
+          bind:value={email}
+        />
+      </label>
 
+      <label for="password"
+        >Password
+        <input
+          class="float-right bg-transparent"
+          type="text"
+          placeholder="geheim!"
+          bind:value={password}
+        />
+      </label>
+      <button class="mt-8 text-3xl text-left" on:click={inloggen}>Log in</button>
 
+      {#if klant}
+        <p>{klant.email}</p>
+        <p>{klant.user_metadata.toegang}</p>
+      {/if}
+    </div>
 
-<div class="flex flex-col text-xl w-9/12">
-  <h1 class="text-3xl rounded-md mb-4">Account maken</h1>
-    <label class="mt-2" >Email adres
-    <input class="float-right" type="email" placeholder="iemand@bedrijf.nl" bind:value={Nemail} />
-    </label>
-    <label for="password">Password
-    <input class="float-right" type="text" placeholder="geheim!" bind:value={Npassword} />
-    </label>
-    <button class="mt-8 text-3xl text-left" on:click={accountMaken}>Maak account</button>
-
-  
-    {#if ojeeAccount}
-      <p>Dit email adres is al gebruikt. Kies hieronder wat u wilt doen</p>
-      <div><button on:click={() => goto('/inloggen')}>naar de inlog pagina</button></div>
-      <div><button on:click={stuurInlogNaarMail}>Stuur een inlog code naar {email}</button></div>
-    {/if}
+    <div class="flex flex-col text-xl w-9/12">
+      <h1 class="text-3xl rounded-md mb-4">Account maken</h1>
+      <label class="mt-2"
+        >Email adres
+        <input
+          class="float-right bg-transparent"
+          type="email"
+          placeholder="iemand@bedrijf.nl"
+          bind:value={Nemail}
+        />
+      </label>
+      <label for="password"
+        >Password
+        <input
+          class="float-right bg-transparent"
+          type="text"
+          placeholder="geheim!"
+          bind:value={Npassword}
+        />
+      </label>
+      <button class="mt-8 text-3xl text-left" on:click={accountMaken}>Maak account</button>
+    </div>
   </div>
 </div>
 
-<div class='grid h-full w-full place-items-center bg-heeldonker z-10 {stuurmail}'>
-  <p class="p-12 bg-licht">Er is een mail naar het ingevulde email adres gezonden</p>
-</div>
+{#if ojeeAccount}
+  <div
+    class="grid h-full w-full absolute top-0 left-0 bg-heeldonker z-10 opacity-25"
+    on:click={resetPop}
+  />
+  <div
+    class="grid h-full w-full absolute top-0 left-0 bg-transparent z-20 place-items-center"
+    on:click={resetPop}
+  >
+    <div class="w-8/12 mx-auto text-xl bg-rood text-white rounded-lg p-12 z-30">
+      <p>Dit email adres is al gebruikt.</p>
+      <p>Log in of</p>
+      <button class="underline cursor-pointer z-30" on:click={stuurInlogNaarMail}>
+        klik hier om een inlog code naar {Nemail} te sturen <br /> (check ook uw spam box)
+      </button>
+    </div>
+  </div>
+{/if}
+
+{#if ojeeInloggen}
+  <div
+    class="grid h-full w-full absolute top-0 left-0 bg-heeldonker z-10 opacity-25"
+    on:click={resetPop}
+  />
+  <div
+    class="grid h-full w-full absolute top-0 left-0 bg-transparent z-20 place-items-center"
+    on:click={resetPop}
+  >
+    <div class="w-8/12 mx-auto text-xl bg-rood text-white rounded-lg p-12 z-30">
+      <p>Sorry, er is iets fout gegaan. <br />U kunt drie dingen doen:</p>
+      <p>Probeer het nog een keer</p>
+      <p>Maak hiernaast een account aan</p>
+      <button class="underline cursor-pointer z-30" on:click={stuurInlogNaarMail}
+        >klik hier om een inlog code naar {email} te sturen (check ook uw spam box)</button
+      >
+    </div>
+  </div>
+{/if}
+
+{#if stuurmail}
+  <div class="grid h-full w-full place-items-center absolute top-0 left-0 z-10 bg-transparent">
+    <p class="p-12 bg-licht">Er is een mail naar het ingevulde email adres gezonden</p>
+  </div>
+{/if}
