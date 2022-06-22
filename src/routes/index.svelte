@@ -54,7 +54,7 @@
 <Fetum />
 
 {#if waarschuwing}
-<div class="w-6/12 absolute ml-5 text-center mt-20 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80">
+<div class="w-6/12 absolute ml-5 text-center mt-5 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80">
     <div class="text-5xl">Sorry!!</div>
       <div class='mt-8'>Het duurt wat langer. 
       <br> Maar over 4 dagen is de site er weer.
