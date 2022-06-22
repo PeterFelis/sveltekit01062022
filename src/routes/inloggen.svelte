@@ -18,11 +18,11 @@
   let email,
     password = '';
 
-  onMount(async () => {
-    const error = await supabase.auth.signOut();
+  //onMount(async () => {
+    const error = supabase.auth.signOut();
     $gebruiker = false;
     console.log('uitgelogt');
-  });
+ // });
 
   // inloggen bestaande klant
   const inloggen = async () => {

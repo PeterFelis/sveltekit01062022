@@ -1,10 +1,12 @@
 <script>
   import { supabase } from '$lib/supabaseClient';
   import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
 
   const user = supabase.auth.user();
   let volledigmenu = false;
   let voornaam;
+  
 
   if (user != null) {
     if (user.user_metadata.toegang > 9) volledigmenu = true;
@@ -14,7 +16,6 @@
       const id = supabase.auth.user().id;
       let { data, error } = await supabase.from('personen').select('voornaam').eq('autID', id);
       if (data) {
-        console.log(data[0].voornaam);
         voornaam = data[0].voornaam;
       }
     }
@@ -22,7 +23,7 @@
   }
 </script>
 
-<nav class="flex items-center bg-paars h-20 bg-opacity-60 fixed w-full">
+<nav class="flex items-center bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 transition-all fixed w-full">
   <div class="container mx-auto flex flex-row">
     {#if volledigmenu}
       <div
@@ -43,10 +44,12 @@
       >
         <a sveltekit:prefetch href="/admin/pi">producten</a>
       </div>
+      {/if}
+
+
       <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/'}>
-        <a sveltekit:prefetch href="/">index</a>
+        <a sveltekit:prefetch href="/">home</a>
       </div>
-    {/if}
 
     <div
       class="font-Raleway text-base mr-6 relative"
@@ -75,12 +78,13 @@
       <a sveltekit:prefetch href="/inloggen">inloggen</a>
     </div>
     <div
-      class="font-Raleway text-base mr-6 relative"
+      class="font-Raleway text-base mr-6 relative cursor-pointer"
       title="log uit"
       on:click={async function () {
-        const error = await supabase.auth.signOut();
+        await supabase.auth.signOut();
         voornaam = '';
-        console.log('uitgelogt');
+        console.log('uitgelogd');
+        location.reload();
       }}
     >
       {#if !user == false}

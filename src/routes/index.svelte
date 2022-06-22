@@ -1,6 +1,9 @@
 <script>
   import Header from '$lib/header/Header.svelte';
   import Fetum from '$lib/header/Fetum.svelte';
+  import { supabase } from '$lib/supabaseClient';
+  const user = supabase.auth.user();
+ 
 
   const producten = [
     {
@@ -35,6 +38,11 @@
 
   import { page } from '$app/stores';
   const type = $page;
+  let waarschuwing=true;
+
+  if (user != null) {
+    if (user.user_metadata.toegang > 9) waarschuwing = false; else waarschuwing= true;
+  }  
 </script>
 
 <svelte:head>
@@ -45,8 +53,17 @@
 
 <Fetum />
 
-<div>
-  <div
+{#if waarschuwing}
+<div class="w-6/12 absolute ml-5 text-center mt-20 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80">
+    <div class="text-5xl">Sorry!!</div>
+      <div class='mt-8'>Het duurt wat langer. 
+      <br> Maar over 4 dagen is de site er weer.
+      <br> Helemaal glimmend nieuw.
+    </div>
+</div>
+{/if}
+
+<div
     class="h-screen w-screen bg-center bg-cover"
     style="background-image: url('/afbeeldingen/hp-136.jpg')"
   >
@@ -117,7 +134,7 @@
     class="h-screen w-screen bg-center bg-cover"
     style="background-image: url('/afbeeldingen/muis.png')"
   />
-</div>
+
 
 <div class="overflow-hidden">
   <!-- The slider itself is a flex grid -->
