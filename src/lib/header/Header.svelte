@@ -1,29 +1,39 @@
 <script>
   import { supabase } from '$lib/supabaseClient';
   import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
+  import { gebruiker } from '$lib/store.js';
+  import { onDestroy } from 'svelte';
 
   const user = supabase.auth.user();
   let volledigmenu = false;
-  let voornaam;
-  
+  let voornaam = '';
 
-  if (user != null) {
-    if (user.user_metadata.toegang > 9) volledigmenu = true;
-    // naam ophalen voor menu balk
+  let unsub = gebruiker.subscribe(() => {});
+  onDestroy(() => unsub());
 
-    async function ophalenVoornaam() {
-      const id = supabase.auth.user().id;
-      let { data, error } = await supabase.from('personen').select('voornaam').eq('autID', id);
-      if (data) {
-        voornaam = data[0].voornaam;
-      }
+  // deze truuk triggert functie als er iet verandert ;-)
+  $: $gebruiker, ophalenVoornaam();
+
+  // naam ophalen voor menu balk
+  async function ophalenVoornaam() {
+    if (!supabase.auth.user()) {
+      voornaam = '';
+      volledigmenu = false;
+      return;
     }
-    ophalenVoornaam();
+    const user = supabase.auth.user();
+    const id = supabase.auth.user().id;
+    let { data, error } = await supabase.from('personen').select('voornaam').eq('autID', id);
+    if (data) {
+      voornaam = data[0].voornaam;
+      if (user.user_metadata.toegang > 9) volledigmenu = true;
+    }
   }
 </script>
 
-<nav class="flex items-center bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 transition-all fixed w-full">
+<nav
+  class="flex items-center bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all fixed w-full z-50"
+>
   <div class="container mx-auto flex flex-row">
     {#if volledigmenu}
       <div
@@ -44,12 +54,11 @@
       >
         <a sveltekit:prefetch href="/admin/pi">producten</a>
       </div>
-      {/if}
+    {/if}
 
-
-      <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/'}>
-        <a sveltekit:prefetch href="/">home</a>
-      </div>
+    <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/'}>
+      <a sveltekit:prefetch href="/">home</a>
+    </div>
 
     <div
       class="font-Raleway text-base mr-6 relative"
@@ -83,13 +92,22 @@
       on:click={async function () {
         await supabase.auth.signOut();
         voornaam = '';
+        gebruiker.set(false);
         console.log('uitgelogd');
         location.reload();
       }}
     >
-      {#if !user == false}
-        hai! {voornaam}
+      hai!
+      {#if voornaam}
+        {voornaam}
       {/if}
+    </div>
+
+    <div class="w-20 fixed right-10 logo cursor-pointer">
+      <a href="/">
+        <img src="/fetumlogo.png" alt="Fetum ons logo" />
+        <p class="text-xs text-center">0174-769132</p>
+      </a>
     </div>
   </div>
 </nav>
@@ -103,7 +121,7 @@
     width: 0;
     height: 0;
     border-top: 0.5rem solid transparent;
-    border-left: 0.5rem solid #6b9080;
+    border-left: 0.5rem solid red;
     border-bottom: 0.5rem solid transparent;
     top: -1rem;
     left: 0.7rem;

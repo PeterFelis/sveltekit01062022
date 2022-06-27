@@ -1,9 +1,6 @@
 <script>
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
   import { supabase } from '$lib/supabaseClient';
   const user = supabase.auth.user();
- 
 
   const producten = [
     {
@@ -38,103 +35,95 @@
 
   import { page } from '$app/stores';
   const type = $page;
-  let waarschuwing=true;
+  let waarschuwing = false;
 
   if (user != null) {
-    if (user.user_metadata.toegang > 9) waarschuwing = false; else waarschuwing= true;
-  }  
+    if (user.user_metadata.toegang > 9) waarschuwing = false;
+    else waarschuwing = true;
+  }
 </script>
 
 <svelte:head>
   <title>Hoi! start hier | Fetum</title>
 </svelte:head>
 
-<Header />
-
-<Fetum />
-
 {#if waarschuwing}
-<div class="w-6/12 absolute ml-5 text-center mt-5 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80">
+  <div
+    class="w-6/12 absolute ml-5 text-center mt-20 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80"
+  >
     <div class="text-5xl">Sorry!!</div>
-      <div class='mt-8'>Het duurt wat langer. 
-      <br> Maar over 4 dagen is de site er weer.
-      <br> Helemaal glimmend nieuw.
+    <div class="mt-8">
+      Het duurt wat langer.
+      <br /> Maar over 4 dagen is de site er weer.
+      <br /> Helemaal glimmend nieuw.
     </div>
-</div>
+  </div>
 {/if}
 
 <div
-    class="h-screen w-screen bg-center bg-cover"
-    style="background-image: url('/afbeeldingen/hp-136.jpg')"
-  >
-    <div class="absolute bottom-0 left-0 w-full h-1/6">
-      <p class="w-full flex place-content-center text-donker text-2xl info text-center px-8">
-        Hoofdtelefoons en electronica voor zorg, <br />educatie en iedereen die we van dienst kunnen
-        zijn.
-      </p>
-    </div>
+  class="h-screen w-screen bg-center bg-cover"
+  style="background-image: url('/afbeeldingen/hp-136.jpg')"
+>
+  <div class="absolute bottom-0 left-0 w-full h-1/6">
+    <p class="w-full flex place-content-center text-donker text-2xl info text-center px-8">
+      Hoofdtelefoons en electronica voor zorg, educatie en iedereen die we van dienst kunnen zijn.
+    </p>
   </div>
-  <div />
+</div>
 
-  <div class="px-16 py-32 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 text-center">
-    <div class="relative">
-      <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
-        <img
-          class="object-contain duration-1000 hover:-rotate-180"
-          src="/afbeeldingen/hp188.png"
-          alt="hp-188"
-        />
-      </div>
-      <h2 class="w-full text-center text-2xl text-rood">Degelijke hoofdtelefoons</h2>
+<div class="px-16 py-32 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 text-center">
+  <div class="relative">
+    <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
+      <img
+        class="object-contain duration-1000 hover:-rotate-180"
+        src="/afbeeldingen/hp188.png"
+        alt="hp-188"
+      />
     </div>
-
-    <div class="relative">
-      <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
-        <img
-          class="object-contain duration-1000 hover:-rotate-180"
-          src="/afbeeldingen/hp-32.png"
-          alt="hp32"
-        />
-      </div>
-      <h2 class="w-full text-center text-2xl text-rood">Oortjes</h2>
-    </div>
-
-    <div class="relative">
-      <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
-        <img
-          class="object-contain duration-1000 hover:-rotate-180"
-          src="/afbeeldingen/i40.png"
-          alt="i-40"
-        />
-      </div>
-      <h2 class="w-full text-center text-2xl text-rood">Doosjes</h2>
-    </div>
-  </div>
-  <hr class="text-rood" />
-
-  <div class="container text-donker grid md:grid-cols-2 md:grid-rows-1 mx-auto my-36">
-    <div class="text-xl grid place-content-center ">
-      <h2 class="text-heeldonker text-7xl xl:text-9xl font-Valera">Hai!</h2>
-      <h2 class="text-4xl">Wij zijn Fetum.</h2>
-    </div>
-    <div>
-      <p class="mt-8 text-2xl">Wij leveren alles rond de computer op school.</p>
-      <p class="mt-4 text-base">
-        De nadruk ligt op hoofdtelefoons en oortjes. Van budgetuitvoeringen voor grootverbruikers in
-        de zorg tot op maat gemaakt voor het onderwijs.
-      </p>
-      <p class="mt-2">We zijn u graag van dienst</p>
-      <button class="border text-white bg-blue-600 rounded-lg p-4 mt-16 mx-auto"
-        >Wat doen wij allemaal</button
-      >
-    </div>
+    <h2 class="w-full text-center text-2xl text-rood">Degelijke hoofdtelefoons</h2>
   </div>
 
-  <div
-    class="h-screen w-screen bg-center bg-cover"
-    style="background-image: url('/afbeeldingen/muis.png')"
-  />
+  <div class="relative">
+    <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
+      <img
+        class="object-contain duration-1000 hover:-rotate-180"
+        src="/afbeeldingen/hp-32.png"
+        alt="hp32"
+      />
+    </div>
+    <h2 class="w-full text-center text-2xl text-rood">Oortjes</h2>
+  </div>
 
+  <div class="relative">
+    <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
+      <img
+        class="object-contain duration-1000 hover:-rotate-180"
+        src="/afbeeldingen/i40.png"
+        alt="i-40"
+      />
+    </div>
+    <h2 class="w-full text-center text-2xl text-rood">Doosjes</h2>
+  </div>
+</div>
+<hr class="text-rood" />
+
+<div class="container text-donker grid md:grid-cols-2 md:grid-rows-1 mx-auto my-36">
+  <div class="text-xl grid place-content-center ">
+    <h2 class="text-heeldonker text-7xl xl:text-9xl font-Valera">Hai!</h2>
+    <h2 class="text-4xl">Wij zijn Fetum.</h2>
+  </div>
+  <div>
+    <p class="mt-8 text-2xl">Wij leveren alles rond de computer op school.</p>
+    <p class="mt-4 text-base">
+      De nadruk ligt op hoofdtelefoons en oortjes. Van budgetuitvoeringen voor grootverbruikers in
+      de zorg tot op maat gemaakt voor het onderwijs.
+    </p>
+    <p class="mt-2">We zijn u graag van dienst</p>
+    <button class="border text-white bg-blue-600 rounded-lg p-4 mt-16 mx-auto"
+      >Wat doen wij allemaal</button
+    >
+  </div>
+</div>
 
 <div class="overflow-hidden">
   <!-- The slider itself is a flex grid -->
@@ -159,6 +148,11 @@
     </clipPath>
   </defs>
 </svg>
+
+<div
+  class="h-screen w-screen bg-center bg-cover"
+  style="background-image: url('/afbeeldingen/muis.png')"
+/>
 
 <style>
   .svgblob {

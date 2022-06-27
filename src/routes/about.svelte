@@ -14,11 +14,6 @@
   export const prerender = true;
 </script>
 
-<script>
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
-</script>
-
 <svelte:head>
   <title>About</title>
   <meta name="description" content="About this app" />

@@ -15,8 +15,8 @@ module.exports = {
         'paars': "#AD92BB",
         'achtergrond': '#F8F6F2',
         'oranje': "#F5B06F"
-      }
+      },
     }
   },
-  plugins: []
+  plugins: [require("daisyui")]
 };

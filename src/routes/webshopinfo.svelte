@@ -1,15 +1,6 @@
-<script>
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
-</script>
-
 <svelte:head>
   <title>VVV cheques, bestellen, klant worden en zo | Fetum</title>
 </svelte:head>
-
-<Header />
-
-<Fetum />
 
 <div class="pt-20 bg-achtergrond">
   <div class="text-donker grid grid-cols-2 container mx-auto">

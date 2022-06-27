@@ -1,16 +1,13 @@
 <script>
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
-
-  import { onMount } from 'svelte';
   import { gebruiker } from '$lib/store.js';
   import { supabase } from '$lib/supabaseClient';
   import { goto } from '$app/navigation';
 
   let klant = null;
-  let ojeeInloggen = false;
-  let ojeeAccount = false;
+  let inLoggenNietGelukt = false;
+  let ojeeAccountBestaatAL = false;
   let stuurmail = false;
+
   //nieuwe klant aanmaken
   let Nemail,
     Npassword = '';
@@ -18,11 +15,12 @@
   let email,
     password = '';
 
-  //onMount(async () => {
+  // als ingelogd, eerst uitloggen!
+  if (supabase.auth.user()) {
     const error = supabase.auth.signOut();
-    $gebruiker = false;
+    gebruiker.set('');
     console.log('uitgelogt');
- // });
+  }
 
   // inloggen bestaande klant
   const inloggen = async () => {
@@ -32,31 +30,30 @@
     });
 
     if (error !== null) {
-      ojeeInloggen = true;
+      inLoggenNietGelukt = true;
       return;
     }
-
-    const user = supabase.auth.user();
-    klant = user;
+    // als inloggen wel gelukt is
+    console.log('inloggen gelukt');
+    gebruiker.set('true');
     goto('/');
     return;
   };
 
   // opvragen password
   const stuurInlogNaarMail = async () => {
-    let tmail = email;
-    if (!tmail) tmail = Nemail;
+    let tmail = !email ? email : Nemail;
+    //if (!tmail) tmail = Nemail;
     let { data, error } = await supabase.auth.api.resetPasswordForEmail(tmail, {
       redirectTo: 'http://localhost:3000/nieuwPassword'
     });
     ojeeAccount = false;
-    stuurmail = true;
-    show();
+    showBerichtDatMailIsGezonden();
     console.log(data, error);
   };
 
-  const show = function () {
-    console.log('show');
+  const showBerichtDatMailIsGezonden = function () {
+    stuurmail = true;
     setTimeout(() => weghalen(), 3000);
   };
 
@@ -71,16 +68,18 @@
       email: Nemail,
       password: Npassword
     });
-    console.log(reply.error);
-    if (reply.error.message == 'User already registered') {
-      ojeeAccount = true;
-      return;
+    console.log(reply);
+    if (reply.error) {
+      if (reply.error.message == 'User already registered') {
+        ojeeAccount = true;
+        return;
+      }
     }
   };
 
-  const resetPop = () => {
+  const resetPopUp = () => {
     klant = null;
-    ojeeInloggen = false;
+    inLoggenNietGelukt = false;
     ojeeAccount = false;
     stuurmail = 'hidden';
     Nemail = Npassword = email = password = '';
@@ -91,11 +90,7 @@
   <title>Inloggen of klantworden | Fetum</title>
 </svelte:head>
 
-<Header />
-
-<Fetum />
-
-<div class="bg-achtergrond flex flex-col place-items-center h-screen w-screen">
+<div class="bg-achtergrond flex flex-col place-items-center w-screen py-20">
   <div class="text-donker grid grid-cols-2 container mx-auto">
     <div class="flex flex-col justify-center">
       <h1 class="text-center text-3xl md:text-6xl font-Raleway my-4">
@@ -163,7 +158,7 @@
   </div>
 </div>
 
-{#if ojeeAccount}
+{#if ojeeAccountBestaatAL}
   <div
     class="grid h-full w-full absolute top-0 left-0 bg-heeldonker z-10 opacity-25"
     on:click={resetPop}
@@ -182,14 +177,14 @@
   </div>
 {/if}
 
-{#if ojeeInloggen}
+{#if inLoggenNietGelukt}
   <div
     class="grid h-full w-full absolute top-0 left-0 bg-heeldonker z-10 opacity-25"
-    on:click={resetPop}
+    on:click={resetPopUp}
   />
   <div
     class="grid h-full w-full absolute top-0 left-0 bg-transparent z-20 place-items-center"
-    on:click={resetPop}
+    on:click={resetPopUp}
   >
     <div class="w-8/12 mx-auto text-xl bg-rood text-white rounded-lg p-12 z-30">
       <p>Sorry, er is iets fout gegaan. <br />U kunt drie dingen doen:</p>

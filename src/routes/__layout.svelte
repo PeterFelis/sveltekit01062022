@@ -1,9 +1,10 @@
 <script context="module">
   import '../app.css';
-  import 'animate.css';
+</script>
 
-  import { supabase } from '$lib/supabaseClient';
-  import { goto } from '$app/navigation';
+<script>
+  import Header from '$lib/header/Header.svelte';
+  import Footer from '$lib/header/Footer.svelte';
 </script>
 
 <svelte:head>
@@ -15,6 +16,9 @@
   />
 </svelte:head>
 
-<main class="font-Raleway">
+<main class="font-Raleway overflow-x-hidden">
+  <Header />
+  <div class="w-full h-6" />
   <slot />
+  <Footer />
 </main>
