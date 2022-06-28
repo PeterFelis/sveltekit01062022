@@ -1,7 +1,4 @@
 <script>
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
-
   import { wegschrijven } from './infoBijwerken';
   import { ophalen } from './infoBijwerken';
 
@@ -20,11 +17,7 @@
   const halen = async () => console.log('dit is uit svelte', await ophalen());
 </script>
 
-<Header />
-
-<Fetum />
 <div class="container bg-achtergrond px-20 mx-auto">
-
   <h1 class="text-xl">infobijwerken</h1>
 </div>
 

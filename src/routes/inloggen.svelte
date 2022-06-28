@@ -3,7 +3,7 @@
   import { supabase } from '$lib/supabaseClient';
   import { goto } from '$app/navigation';
 
-  let klant = null;
+  //let klant = null;
   let inLoggenNietGelukt = false;
   let ojeeAccountBestaatAL = false;
   let stuurmail = false;
@@ -42,12 +42,12 @@
 
   // opvragen password
   const stuurInlogNaarMail = async () => {
-    let tmail = !email ? email : Nemail;
-    //if (!tmail) tmail = Nemail;
+    let tmail = email;
+    if (!tmail) tmail = Nemail;
     let { data, error } = await supabase.auth.api.resetPasswordForEmail(tmail, {
       redirectTo: 'http://localhost:3000/nieuwPassword'
     });
-    ojeeAccount = false;
+    ojeeAccountBestaatAL = false;
     showBerichtDatMailIsGezonden();
     console.log(data, error);
   };
@@ -71,17 +71,17 @@
     console.log(reply);
     if (reply.error) {
       if (reply.error.message == 'User already registered') {
-        ojeeAccount = true;
+        ojeeAccountBestaatAL = true;
         return;
       }
+      goto('./');
     }
   };
 
   const resetPopUp = () => {
-    klant = null;
     inLoggenNietGelukt = false;
-    ojeeAccount = false;
-    stuurmail = 'hidden';
+    ojeeAccountBestaatAL = false;
+    stuurmail = false;
     Nemail = Npassword = email = password = '';
   };
 </script>
@@ -116,21 +116,16 @@
         />
       </label>
 
-      <label for="password"
+      <label
         >Password
         <input
           class="float-right bg-transparent"
-          type="text"
+          type="password"
           placeholder="geheim!"
           bind:value={password}
         />
       </label>
       <button class="mt-8 text-3xl text-left" on:click={inloggen}>Log in</button>
-
-      {#if klant}
-        <p>{klant.email}</p>
-        <p>{klant.user_metadata.toegang}</p>
-      {/if}
     </div>
 
     <div class="flex flex-col text-xl w-9/12">
@@ -144,7 +139,7 @@
           bind:value={Nemail}
         />
       </label>
-      <label for="password"
+      <label
         >Password
         <input
           class="float-right bg-transparent"
@@ -161,11 +156,11 @@
 {#if ojeeAccountBestaatAL}
   <div
     class="grid h-full w-full absolute top-0 left-0 bg-heeldonker z-10 opacity-25"
-    on:click={resetPop}
+    on:click={resetPopUp}
   />
   <div
     class="grid h-full w-full absolute top-0 left-0 bg-transparent z-20 place-items-center"
-    on:click={resetPop}
+    on:click={resetPopUp}
   >
     <div class="w-8/12 mx-auto text-xl bg-rood text-white rounded-lg p-12 z-30">
       <p>Dit email adres is al gebruikt.</p>
@@ -186,11 +181,13 @@
     class="grid h-full w-full absolute top-0 left-0 bg-transparent z-20 place-items-center"
     on:click={resetPopUp}
   >
-    <div class="w-8/12 mx-auto text-xl bg-rood text-white rounded-lg p-12 z-30">
-      <p>Sorry, er is iets fout gegaan. <br />U kunt drie dingen doen:</p>
+    <div class="w-8/12 mx-auto text-xl text-center bg-rood text-white rounded-lg p-12 z-30">
+      <p>Sorry, er is iets fout gegaan</p>
+      <p />
+      <p>U kunt drie dingen doen:</p>
       <p>Probeer het nog een keer</p>
       <p>Maak hiernaast een account aan</p>
-      <button class="underline cursor-pointer z-30" on:click={stuurInlogNaarMail}
+      <button class="underline cursor-pointer z-30 mt-2" on:click={stuurInlogNaarMail}
         >klik hier om een inlog code naar {email} te sturen (check ook uw spam box)</button
       >
     </div>

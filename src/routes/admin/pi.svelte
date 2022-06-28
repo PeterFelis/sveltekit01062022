@@ -2,9 +2,6 @@
   import { supabase } from '$lib/supabaseClient';
   import ProductKaart from '$lib/ProductKaart.svelte';
   import { onMount } from 'svelte';
-  import Header from '$lib/header/Header.svelte';
-  import Fetum from '$lib/header/Fetum.svelte';
-  import { goto } from '$app/navigation';
 
   // check of dit mag anders naar index pagina
 
@@ -163,10 +160,6 @@
     }
   }
 </script>
-
-<Header />
-
-<Fetum />
 
 <div class="pt-20 container mx-auto grid grid-cols-6">
   <!-- overzicht productgroepen-->
