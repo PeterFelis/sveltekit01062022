@@ -1,7 +1,17 @@
-<script>
-  import { ophalen } from './klantinfo.js';
+<script context="module">
+  import { supabase } from '$lib/supabaseClient';
+  const user = supabase.auth.user();
 
-  console.log(ophalen());
+  export async function load() {
+    const user = supabase.auth.user();
+    const reply = await supabase.from('personen').select('*').eq('autID', user.id);
+    return { props: { reply } };
+  }
+</script>
+
+<script>
+  export let reply;
+  console.log(reply);
 
   let voornaam;
   let achternaam;

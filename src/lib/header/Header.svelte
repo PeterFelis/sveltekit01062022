@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import { gebruiker } from '$lib/store.js';
   import { onDestroy } from 'svelte';
+  import Label from '$lib/Label.svelte';
 
   const user = supabase.auth.user();
   let volledigmenu = false;
@@ -83,11 +84,6 @@
     <div
       class="font-Raleway text-base mr-6 relative"
       class:active={$page.url.pathname === '/inloggen'}
-    >
-      <a sveltekit:prefetch href="/inloggen">inloggen</a>
-    </div>
-    <div
-      class="font-Raleway text-base mr-6 relative cursor-pointer"
       title="log uit"
       on:click={async function () {
         await supabase.auth.signOut();
@@ -97,10 +93,23 @@
         location.reload();
       }}
     >
-      hai!
-      {#if voornaam}
-        {voornaam}
-      {/if}
+      <a sveltekit:prefetch href="/inloggen">inloggen</a>
+    </div>
+
+    <div>
+      <div class="font-Raleway text-base mr-6 relative cursor-pointer">hai</div>
+      <ul
+        class=" hidden menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+      >
+        <li>
+          <a class="justify-between">
+            Profile
+            <span class="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
     </div>
 
     <div class="w-20 fixed right-10 logo cursor-pointer">
