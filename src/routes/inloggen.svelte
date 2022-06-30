@@ -18,7 +18,7 @@
   // als ingelogd, eerst uitloggen!
   if (supabase.auth.user()) {
     const error = supabase.auth.signOut();
-    gebruiker.set('');
+    gebruiker.set(false);
     console.log('uitgelogt');
   }
 
@@ -35,7 +35,7 @@
     }
     // als inloggen wel gelukt is
     console.log('inloggen gelukt');
-    gebruiker.set('true');
+    gebruiker.set(true);
     goto('/');
     return;
   };

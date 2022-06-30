@@ -33,7 +33,7 @@
 </script>
 
 <nav
-  class="flex items-center bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all fixed w-full z-50"
+  class="bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all fixed w-full z-50 pt-5"
 >
   <div class="container mx-auto flex flex-row">
     {#if volledigmenu}
@@ -90,26 +90,22 @@
         voornaam = '';
         gebruiker.set(false);
         console.log('uitgelogd');
-        location.reload();
       }}
     >
       <a sveltekit:prefetch href="/inloggen">inloggen</a>
     </div>
 
     <div>
-      <div class="font-Raleway text-base mr-6 relative cursor-pointer">hai</div>
-      <ul
-        class=" hidden menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-      >
-        <li>
-          <a class="justify-between">
-            Profile
-            <span class="badge">New</span>
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
-      </ul>
+      <div class="group font-Raleway text-base mr-6 relative cursor-pointer">
+        {#if voornaam}
+          hai {voornaam}
+          <ul
+            class="invisible group-hover:visible bg-paars px-5 mt-5 rounded-md shadow-md transition-all"
+          >
+            <a href="/klantInfo">Klantinfo, verzendadres bijwerken</a>
+          </ul>
+        {/if}
+      </div>
     </div>
 
     <div class="w-20 fixed right-10 logo cursor-pointer">

@@ -11,10 +11,9 @@
 
 <script>
   export let reply;
+  let gebruiker = reply.data[0];
   console.log(reply);
 
-  let voornaam;
-  let achternaam;
   let geslacht;
   let geslachten = ['Vrouw', 'Man', 'Anders', 'Zeg ik niet'];
   let geboortedatum;
@@ -25,6 +24,16 @@
   let klantstaattoevoeging;
   let klantpostcode;
   let klantplaats;
+
+  async function updaten(info) {
+    let infoKlant = {
+      Naam: info.naam,
+      Leeftijd: info.leeftijd,
+      autID: user.id
+    };
+    const reply = await supabase.from('personen').update(infoKlant).eq('autID', user.id);
+    console.log(reply);
+  }
 </script>
 
 <svelte:head>
@@ -38,7 +47,8 @@
       <input
         class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type="input"
-        bind:value={voornaam}
+        bind:value={gebruiker.voornaam}
+        on:change={() => wegschrijven(gebruiker)}
       />
     </label>
 
@@ -47,7 +57,7 @@
       <input
         class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type="input"
-        bind:value={voornaam}
+        bind:value={gebruiker.achternaam}
       />
     </label>
 
