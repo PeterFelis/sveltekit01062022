@@ -63,11 +63,21 @@
   }
 
   // aanmaken nieuwe klant
+
+  //toegan geeft aan wat iemand mag. is standaard 0, behalve bij peter@felis.nl dan is het 10 zodat ik admin kan doen
   const accountMaken = async () => {
-    let reply = await supabase.auth.signUp({
-      email: Nemail,
-      password: Npassword
-    });
+    let vtoegang = 0;
+    if (Nemail == 'peter@felis.nl') vtoegang = 10;
+    let reply = await supabase.auth.signUp(
+      {
+        email: Nemail,
+        password: Npassword
+      },
+      {
+        data: { toegang: vtoegang }
+      }
+    );
+
     console.log(reply);
     if (reply.error) {
       if (reply.error.message == 'User already registered') {

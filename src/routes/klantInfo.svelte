@@ -1,38 +1,66 @@
 <script context="module">
   import { supabase } from '$lib/supabaseClient';
-  const user = supabase.auth.user();
+  import { onDestroy } from 'svelte';
 
   export async function load() {
     const user = supabase.auth.user();
-    const reply = await supabase.from('personen').select('*').eq('autID', user.id);
-    return { props: { reply } };
+    // gebruiker info laden
+    let gebruiker = {};
+    let klant = {};
+
+    if (user) {
+      let { data } = await supabase.from('personen').select('*').eq('autID', user.id);
+
+      if (data?.length == 0) {
+        console.log('lengte 0');
+        gebruiker.autID = user.id;
+      } else gebruiker = data[0];
+
+      // tot hier werkt het
+
+      // klant laden'
+
+      console.log('r23');
+      let { dataa } = await supabase.from('klanten').select('*').eq('autID', user.id);
+      console.log('r24', dataa);
+
+      if (dataa == undefined) {
+        klant.autID = user.id;
+        console.log('r28');
+        console.log('error bij laden klanten', dataa);
+      } else klant = dataa[0];
+    }
+    console.log('klant', klant);
+    console.log('gebruiker', gebruiker);
+
+    return { props: { gebruiker: gebruiker, klant: klant } };
   }
 </script>
 
 <script>
-  export let reply;
-  let gebruiker = reply.data[0];
-  console.log(reply);
+  export let gebruiker = {};
+  export let klant = {};
+  const user = supabase.auth.user();
 
-  let geslacht;
+  onDestroy(() => updaten());
+
   let geslachten = ['Vrouw', 'Man', 'Anders', 'Zeg ik niet'];
-  let geboortedatum;
 
-  let klantnaam;
-  let klantstraat;
-  let klantstraatnummer;
-  let klantstaattoevoeging;
-  let klantpostcode;
-  let klantplaats;
+  async function updaten() {
+    //let infoGebruiker = {
+    //  voornaam: gebruiker.voornaam,
+    //  achternaam: gebruiker.achternaam,
+    //  geslacht: gebruiker.geslacht,
+    //  geboortedatum: gebruiker.geboortedatum,
+    //};
+    console.log('hiero', gebruiker);
+    console.log('user id', user.id);
+    const reply = await supabase.from('personen').insert(gebruiker).eq('autID', user.id);
+    console.log('gebruiker', reply);
 
-  async function updaten(info) {
-    let infoKlant = {
-      Naam: info.naam,
-      Leeftijd: info.leeftijd,
-      autID: user.id
-    };
-    const reply = await supabase.from('personen').update(infoKlant).eq('autID', user.id);
-    console.log(reply);
+    //let infoKlant ={
+    //  klantnaam: klant.klantnaam
+    // }
   }
 </script>
 
@@ -48,7 +76,6 @@
         class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type="input"
         bind:value={gebruiker.voornaam}
-        on:change={() => wegschrijven(gebruiker)}
       />
     </label>
 
@@ -64,7 +91,7 @@
     <label>
       Geslacht
 
-      <select bind:value={geslacht} class="float-right">
+      <select bind:value={gebruiker.geslacht} class="float-right">
         {#each geslachten as gesl}
           <option value={gesl}>
             {gesl}
@@ -72,9 +99,56 @@
         {/each}
       </select>
     </label>
+
     <label>
       Geboortedatum
-      <input class="float-right" type="date" bind:value={geboortedatum} />
+      <input class="float-right" type="date" bind:value={gebruiker.geboortedatum} />
     </label>
   </div>
 </div>
+
+<div>Klant</div>
+<label>
+  Naam
+  <input
+    class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    type="input"
+    bind:value={klant.naam}
+  />
+</label>
+
+<label>
+  Straat
+  <input
+    class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    type="input"
+    bind:value={klant.straat}
+  />
+</label>
+
+<label>
+  Nummer
+  <input
+    class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    type="input"
+    bind:value={klant.nummver}
+  />
+</label>
+
+<label>
+  Postcode
+  <input
+    class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    type="input"
+    bind:value={klant.postcode}
+  />
+</label>
+
+<label>
+  Plaats
+  <input
+    class="float-right shadow appearance-none border rounded py-2 my-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    type="input"
+    bind:value={klant.plaats}
+  />
+</label>

@@ -26,7 +26,8 @@
     const id = supabase.auth.user().id;
     let { data, error } = await supabase.from('personen').select('voornaam').eq('autID', id);
     if (data) {
-      voornaam = data[0].voornaam;
+      voornaam = data[0]?.voornaam;
+      console.log(user?.user_metadata.toegang);
       if (user.user_metadata.toegang > 9) volledigmenu = true;
     }
   }
@@ -97,8 +98,11 @@
 
     <div>
       <div class="group font-Raleway text-base mr-6 relative cursor-pointer">
-        {#if voornaam}
-          hai {voornaam}
+        {#if gebruiker}
+          hai
+          {#if voornaam}
+            {voornaam}
+          {/if}
           <ul
             class="invisible group-hover:visible bg-paars px-5 mt-5 rounded-md shadow-md transition-all"
           >
