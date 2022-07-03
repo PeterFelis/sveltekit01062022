@@ -3,23 +3,27 @@
   import { page } from '$app/stores';
   import { gebruiker } from '$lib/store.js';
   import { onDestroy } from 'svelte';
-  import Label from '$lib/Label.svelte';
-
+ 
   const user = supabase.auth.user();
-  let volledigmenu = false;
+  let menuToegang=1;
   let voornaam = '';
+
+  const algemeen=`bg-paars bg-opacity-60 hover:bg-opacity-100 hover:text-white 
+         transition-all fixed z-50 pt-5 h-screen w-3/6 h-full text-sm flex flex-col place-items-center
+         lg:h-20 lg:w-full lg:text-base lg:block`;
+  let ingeklapt=`hidden`;
 
   let unsub = gebruiker.subscribe(() => {});
   onDestroy(() => unsub());
 
-  // deze truuk triggert functie als er iet verandert ;-)
+  // deze truuk triggert functie als er iets verandert ;-)
   $: $gebruiker, ophalenVoornaam();
 
   // naam ophalen voor menu balk
   async function ophalenVoornaam() {
     if (!supabase.auth.user()) {
       voornaam = '';
-      volledigmenu = false;
+      menuToegang=1;
       return;
     }
     const user = supabase.auth.user();
@@ -28,35 +32,92 @@
     if (data) {
       voornaam = data[0]?.voornaam;
       console.log(user?.user_metadata.toegang);
-      if (user.user_metadata.toegang > 9) volledigmenu = true;
+      menuToegang = user.user_metadata.toegang;
     }
   }
+
+const inloggenIngedrukt = async () =>{
+                  await supabase.auth.signOut();
+                  voornaam = '';
+                  gebruiker.set(false);
+                  console.log('uitgelogd');
+                  }
+
+  let menu=[
+    {url:"/admin/invoegen",text:"invoegen producten",toegang:10},
+    {url:"/admin/auto_accountmaken",text:"test klantenoverdragen",toegang:10},
+    {url:"/admin/pi", text:"producten",toegang:10},
+    {url:"/", text:"home",toegang:1},
+    {url:"/contact", text:"contact",toegang:1,},
+    {url:"/leveringsvoorwaarden",text:"leveringsvoorwaarden",toegang:1},
+    {url:"/webshopinfo", text:"webshop info",toegang:1},
+    {url:"/inloggen", text:"inloggen",toegang:1, action:inloggenIngedrukt}
+  ]
+
+
+const functieAanroepen=(action)=>{
+  if (!action) return;
+  action();
+}
+
+
+
 </script>
 
-<nav
-  class="bg-paars h-20 bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all fixed w-full z-50 pt-5"
->
-  <div class="container mx-auto flex flex-row">
-    {#if volledigmenu}
+<button 
+    on:click={()=>ingeklapt = ingeklapt=='hidden'?"":'hidden'}
+    class="lg:hidden">Menu
+  </button>
+
+
+{#each menu as item}
+  {#if menuToegang >= item.toegang}
+    <div 
+          class="font-Raleway text-base mr-6 relative"
+          class:active={$page.url.pathname === item.url} 
+          on:click = {()=> functieAanroepen(item.action)}
+          >
+          <a sveltekit:prefetch href={item.url}>
+              {item.text}
+          </a>
+         
+    </div>
+  {/if}
+
+{/each}
+
+
+
+
+<nav class="{algemeen} {ingeklapt}">
+ 
+  <div class="w-10/12 mx-auto flex 
+        flex-col
+        lg:flex-row">
+  
+
       <div
         class="font-Raleway text-base mr-6 relative"
         class:active={$page.url.pathname === '/admin/invoegen'}
       >
         <a sveltekit:prefetch href="/admin/auto_accountmaken">test klantenoverdragen</a>
       </div>
+     
       <div
         class="font-Raleway text-base mr-6 relative"
         class:active={$page.url.pathname === '/admin/auto_accountmaken'}
       >
         <a sveltekit:prefetch href="/admin/invoegen">invoegen producten</a>
       </div>
+
+
       <div
         class="font-Raleway text-base mr-6 relative"
         class:active={$page.url.pathname === '/admin/pi'}
       >
         <a sveltekit:prefetch href="/admin/pi">producten</a>
       </div>
-    {/if}
+    
 
     <div class="font-Raleway text-base mr-6 relative" class:active={$page.url.pathname === '/'}>
       <a sveltekit:prefetch href="/">home</a>
@@ -111,15 +172,16 @@
         {/if}
       </div>
     </div>
-
-    <div class="w-20 fixed right-10 logo cursor-pointer">
+    </div>
+  </nav>
+    <div class="w-20 fixed right-10 top-5 z-60 logo cursor-pointer">
       <a href="/">
         <img src="/fetumlogo.png" alt="Fetum ons logo" />
         <p class="text-xs text-center">0174-769132</p>
       </a>
     </div>
-  </div>
-</nav>
+
+
 
 <style>
   .active::after {
