@@ -34,7 +34,6 @@
       return;
     }
     // als inloggen wel gelukt is
-    console.log('inloggen gelukt');
     gebruiker.set(true);
     goto('/');
     return;
@@ -100,66 +99,64 @@
   <title>Inloggen of klantworden | Fetum</title>
 </svelte:head>
 
-<div class="bg-achtergrond flex flex-col place-items-center w-screen py-20">
-  <div class="text-donker grid grid-cols-2 container mx-auto">
-    <div class="flex flex-col justify-center">
-      <h1 class="text-center text-3xl md:text-6xl font-Raleway my-4">
-        Inloggen <br /> of<br /> klant worden
-      </h1>
-      <p class="text-center">Snel en makkelijk</p>
-    </div>
-    <div class="w-full p-4">
-      <img src="/afbeeldingen/hp188.png" />
-    </div>
+<div class="bg-achtergrond flex flex-col lg:flex-row  place-items-center w-screen py-20">
+  <div class="basis-1/2">
+    <h1 class="text-center text-3xl md:text-6xl font-Raleway my-4">
+      Inloggen <br /> of<br /> klant worden
+    </h1>
+    <p class="text-center">Snel en makkelijk</p>
+  </div>
+  <div class="basis-1/2 p-4">
+    <img src="/afbeeldingen/hp188.png" />
+  </div>
+</div>
+
+<div class="container grid grid-rows-2 lg:grid-cols-2 mx-auto w-8/12">
+  <div class="flex flex-col text-xl w-9/12">
+    <h1 class="text-3xl rounded-md mb-4">Inloggen</h1>
+    <label class="mt-2"
+      >Email adres
+      <input
+        class="float-right bg-transparent"
+        type="email"
+        placeholder="iemand@bedrijf.nl"
+        bind:value={email}
+      />
+    </label>
+
+    <label
+      >Password
+      <input
+        class="float-right bg-transparent"
+        type="password"
+        placeholder="geheim!"
+        bind:value={password}
+      />
+    </label>
+    <button class="mt-8 text-3xl text-left" on:click={inloggen}>Log in</button>
   </div>
 
-  <div class="container grid grid-cols-2 mx-auto w-8/12">
-    <div class="flex flex-col text-xl w-9/12">
-      <h1 class="text-3xl rounded-md mb-4">Inloggen</h1>
-      <label class="mt-2"
-        >Email adres
-        <input
-          class="float-right bg-transparent"
-          type="email"
-          placeholder="iemand@bedrijf.nl"
-          bind:value={email}
-        />
-      </label>
-
-      <label
-        >Password
-        <input
-          class="float-right bg-transparent"
-          type="password"
-          placeholder="geheim!"
-          bind:value={password}
-        />
-      </label>
-      <button class="mt-8 text-3xl text-left" on:click={inloggen}>Log in</button>
-    </div>
-
-    <div class="flex flex-col text-xl w-9/12">
-      <h1 class="text-3xl rounded-md mb-4">Account maken</h1>
-      <label class="mt-2"
-        >Email adres
-        <input
-          class="float-right bg-transparent"
-          type="email"
-          placeholder="iemand@bedrijf.nl"
-          bind:value={Nemail}
-        />
-      </label>
-      <label
-        >Password
-        <input
-          class="float-right bg-transparent"
-          type="text"
-          placeholder="geheim!"
-          bind:value={Npassword}
-        />
-      </label>
-      <button class="mt-8 text-3xl text-left" on:click={accountMaken}>Maak account</button>
-    </div>
+  <div class="flex flex-col text-xl w-9/12">
+    <h1 class="text-3xl rounded-md mb-4">Account maken</h1>
+    <label class="mt-2"
+      >Email adres
+      <input
+        class="float-right bg-transparent"
+        type="email"
+        placeholder="iemand@bedrijf.nl"
+        bind:value={Nemail}
+      />
+    </label>
+    <label
+      >Password
+      <input
+        class="float-right bg-transparent"
+        type="text"
+        placeholder="geheim!"
+        bind:value={Npassword}
+      />
+    </label>
+    <button class="mt-8 text-3xl text-left" on:click={accountMaken}>Maak account</button>
   </div>
 </div>
 

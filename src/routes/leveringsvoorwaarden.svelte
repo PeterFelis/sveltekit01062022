@@ -1,4 +1,3 @@
-
 <svelte:head>
   <title>Leverigsvoorwaarden - hele kleine lettertjes | Fetum</title>
 </svelte:head>
@@ -301,16 +300,5 @@
 <style>
   p {
     margin-bottom: 1rem;
-  }
-
-  .rastergeel {
-    background: rgb(255, 255, 255);
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) -20%,
-      #f2c76e 10%,
-      #f2c76e 90%,
-      rgba(255, 255, 255, 1) 120%
-    );
   }
 </style>

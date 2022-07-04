@@ -1,6 +1,12 @@
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
+    container: {
+      center: true,
+      padding: '16px',
+      lg: '8px',
+      xl: '0px'
+    },
     extend: {
       fontFamily: {
         'Raleway': ['"Raleway"', 'sans-serif'],
@@ -18,5 +24,4 @@ module.exports = {
       },
     }
   },
-  plugins: [require("daisyui")]
 };

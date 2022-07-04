@@ -8,7 +8,6 @@
 
   //de json met alle producten -> komt origineel uit Fetum database
   import { producten } from './producten';
-  import Label from '$lib/Label.svelte';
 
   // voor de eenmalige inladen -> overdragen naar andere pagina
   $: tellerfout = 0;

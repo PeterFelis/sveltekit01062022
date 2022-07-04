@@ -61,17 +61,19 @@
 {/if}
 
 <div
-  class="h-screen w-screen bg-center bg-cover"
+  class="h-screen w-screen bg-center bg-contain bg-no-repeat lg:bg-cover"
   style="background-image: url('/afbeeldingen/hp-136.jpg')"
 >
-  <div class="absolute bottom-0 left-0 w-full h-1/6">
+  <div class="absolute bottom-10 left-0 w-full h-1/6">
     <p class="w-full flex place-content-center text-donker text-2xl info text-center px-8">
       Hoofdtelefoons en electronica voor zorg, educatie en iedereen die we van dienst kunnen zijn.
     </p>
   </div>
 </div>
 
-<div class="px-16 py-32 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 text-center">
+<div
+  class="px-16 py-32 mx-auto grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 text-center container"
+>
   <div class="relative">
     <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
       <img

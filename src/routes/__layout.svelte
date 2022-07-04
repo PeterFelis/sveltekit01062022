@@ -4,7 +4,6 @@
 
 <script>
   import Header from '$lib/header/Header.svelte';
-  import Footer from '$lib/header/Footer.svelte';
 </script>
 
 <svelte:head>
@@ -18,7 +17,7 @@
 
 <main class="font-Raleway overflow-x-hidden">
   <Header />
-  <div class="w-full h-6" />
-  <slot />
-  <Footer />
+  <div>
+    <slot />
+  </div>
 </main>
