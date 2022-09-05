@@ -16,7 +16,6 @@
 </svelte:head>
 
 <main class="font-Raleway overflow-x-hidden">
-  <Header />
   <div>
     <slot />
   </div>

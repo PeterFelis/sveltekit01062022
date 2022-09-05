@@ -35,7 +35,7 @@
 
   import { page } from '$app/stores';
   const type = $page;
-  let waarschuwing = false;
+  let waarschuwing = true;
 
   if (user != null) {
     if (user.user_metadata.toegang > 9) waarschuwing = false;
@@ -49,13 +49,13 @@
 
 {#if waarschuwing}
   <div
-    class="w-6/12 absolute ml-5 text-center mt-20 p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80"
+    class="w-6/12 absolute ml-5 mt-1 text-center  p-8 text-3xl bg-licht text-rood drop-shadow-md opacity-80 z-20"
   >
     <div class="text-5xl">Sorry!!</div>
     <div class="mt-8">
       Het duurt wat langer.
-      <br /> Maar over 4 dagen is de site er weer.
-      <br /> Helemaal glimmend nieuw.
+      <br /> Op 7 september (nu echt) zijn we weer online
+      <br /> Even bellen kan ook: 0174 76913 <br />(lossen we het meteen op)
     </div>
   </div>
 {/if}
