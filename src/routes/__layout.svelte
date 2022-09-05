@@ -17,6 +17,7 @@
 
 <main class="font-Raleway overflow-x-hidden">
   <div>
+    <Header />
     <slot />
   </div>
 </main>

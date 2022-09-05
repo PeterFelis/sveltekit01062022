@@ -55,7 +55,7 @@
     <div class="mt-8">
       Het duurt wat langer.
       <br /> Op 7 september (nu echt) zijn we weer online
-      <br /> Even bellen kan ook: 0174 76913 <br />(lossen we het meteen op)
+      <br /> Even bellen kan ook: 0174 769-132 <br />(lossen we het meteen op)
     </div>
   </div>
 {/if}
@@ -88,7 +88,7 @@
   <div class="relative">
     <div class="svgblob bg-oranje bg-opacity-30 duration-1000 hover:rotate-180">
       <img
-        class="object-contain duration-1000 hover:-rotate-180"
+        class="object-contain duration-1000 hover:-rotate-180 p-20"
         src="/afbeeldingen/hp-32.png"
         alt="hp32"
       />
