@@ -54,7 +54,7 @@
     <div class="text-5xl">Sorry!!</div>
     <div class="mt-8">
       Het duurt wat langer.
-      <br /> Op 7 september (nu echt) zijn we weer online
+      <br /> Op 8 september zijn we weer online
       <br /> Even bellen kan ook: 0174 769-132 <br />(lossen we het meteen op)
     </div>
   </div>
