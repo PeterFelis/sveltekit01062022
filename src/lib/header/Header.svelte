@@ -50,8 +50,7 @@
     { url: '/', text: 'home', toegang: 1 },
     { url: '/contact', text: 'contact', toegang: 1 },
     { url: '/leveringsvoorwaarden', text: 'leveringsvoorwaarden', toegang: 1 },
-    { url: '/webshopinfo', text: 'webshop info', toegang: 1 },
-    { url: '/inloggen', text: 'inloggen', toegang: 1, action: inloggenIngedrukt }
+    { url: '/webshopinfo', text: 'webshop info', toegang: 1 }
   ];
 
   const functieAanroepen = (action) => {
