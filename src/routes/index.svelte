@@ -54,7 +54,7 @@
     <div class="text-5xl">Sorry!!</div>
     <div class="mt-8">
       -- Dank je nog heel even voor je geduld --
-      <br /> 28-03-2023 zijn we weer helemaal online!
+      <br /> 28-maart-2023 zijn we weer helemaal online!
       <br /> Even bellen kan ook: 0174 769-132 <br />(lossen we het meteen op)
     </div>
   </div>
