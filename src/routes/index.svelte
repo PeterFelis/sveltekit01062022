@@ -53,8 +53,8 @@
   >
     <div class="text-5xl">Sorry!!</div>
     <div class="mt-8">
-      Het duurt veel langer... Plannen blijft moeilijk.. en ook nog veel nieuwe spullen!
-      <br /> Op dinsdag 11 oktober zijn we weer helemaal online
+      -- Dank je nog heel even voor je geduld. --
+      <br /> 28-03-2023 zijn we weer helemaal online!
       <br /> Even bellen kan ook: 0174 769-132 <br />(lossen we het meteen op)
     </div>
   </div>
