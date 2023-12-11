@@ -1,27 +1,23 @@
-<script>
+<script context="module">
   import '../app.css';
 </script>
 
-<main>
-  <slot />
-</main>
+<script>
+  import Header from '$lib/header/Header.svelte';
+</script>
 
-<style>
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-    box-sizing: border-box;
-    background-image: radial-gradient(
-      circle at 60.36% 21.54%,
-      #ffffff 0,
-      #ffeeff 25%,
-      #f8d7f8 50%,
-      #e2c1e9 75%,
-      #ceafde 100%
-    );
-  }
-</style>
+<svelte:head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&family=Varela+Round&display=swap"
+    rel="stylesheet"
+  />
+</svelte:head>
+
+<main class="font-Raleway overflow-x-hidden">
+  <div>
+    <Header />
+    <slot />
+  </div>
+</main>
